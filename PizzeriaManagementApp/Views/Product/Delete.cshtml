@@ -1,10 +1,10 @@
-﻿@model PizzeriaManagementApp.Models.Category
+﻿@model PizzeriaManagementApp.Models.Product
 
-<form method="post">
+<form method="post" asp-action="DeleteConfirm">
     <input asp-for="Id" hidden />
     <div class="border p-3">
         <div class="form-group row">
-            <h2 class="text-info p-3">Edit category</h2>
+            <h2 class="text-info p-3">Delete product</h2>
         </div>
         <div class="row">
             <div class="col-8">
@@ -13,14 +13,21 @@
                         <label asp-for="Name"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="Name" class="form-control" />
-                        <span asp-validation-for="Name" class="text-danger"></span>
+                        <input asp-for="Name" class="form-control" disabled />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Category.Name"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Category.Name" class="form-control" disabled />
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-8 offset-4 row">
                         <div class="col">
-                            <input type="submit" class="btn btn-warning w-100" value="Update" />
+                            <input type="submit" class="btn btn-danger w-100" value="Delete" />
                         </div>
                         <div class="col">
                             <a asp-action="Index" class="btn btn-info w-100">

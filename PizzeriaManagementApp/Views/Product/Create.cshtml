@@ -1,19 +1,29 @@
-﻿@model PizzeriaManagementApp.Models.Category
+﻿@model PizzeriaManagementApp.ViewModels.ProductViewModel
 
 <form method="post" asp-action="Create">
     <div class="border p-3">
         <div class="form-group row">
-            <h2 class="text-info p-3">Add category</h2>
+            <h2 class="text-info p-3">Add product</h2>
         </div>
         <div class="row">
             <div class="col-8">
                 <div class="form-group row">
                     <div class="col-4">
-                        <label asp-for="Name"></label>
+                        <label asp-for="Product.Name"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="Name" class="form-control" />
-                        <span asp-validation-for="Name" class="text-danger"></span>
+                        <input asp-for="Product.Name" class="form-control" />
+                        <span asp-validation-for="Product.Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Product.CategoryId"></label>
+                    </div>
+                    <div class="col-8">
+                        <select asp-for="Product.CategoryId" asp-items="@Model.Categories" class="form-control">
+                        </select>
+                        <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group row">

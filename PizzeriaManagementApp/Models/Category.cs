@@ -7,6 +7,7 @@ namespace PizzeriaManagementApp.Models
     {
         public Guid Id { get; set; }
         [Required]
+        [Display(Name="Category name")]
         public string Name { get; set; }
     }
 }

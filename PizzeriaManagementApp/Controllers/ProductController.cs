@@ -20,7 +20,7 @@ namespace PizzeriaManagementApp.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Product> products= _dbContext.Products;
+            IEnumerable<Product> products = _dbContext.Products;
             foreach (Product product in products)
             {
                 product.Category = _dbContext.Categories.FirstOrDefault(x => x.Id == product.CategoryId);
@@ -124,7 +124,6 @@ namespace PizzeriaManagementApp.Controllers
             {
                 return NotFound();
             }
-
             _dbContext.Products.Remove(product);
             _dbContext.SaveChanges();
             return RedirectToAction("Index");

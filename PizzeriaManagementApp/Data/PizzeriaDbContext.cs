@@ -12,5 +12,7 @@ namespace PizzeriaManagementApp.Data
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<PizzaProducts> PizzaProducts { get; set; }
+        public DbSet<Pizza> Pizzas { get; set; }
     }
 }

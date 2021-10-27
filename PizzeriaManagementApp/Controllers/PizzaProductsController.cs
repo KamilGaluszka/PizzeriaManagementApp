@@ -20,6 +20,7 @@ namespace PizzeriaManagementApp.Controllers
         public IActionResult Index(Guid id)
         {
             ICollection<PizzaProducts> pizzaProducts = _dbContext.PizzaProducts.Where(x => x.IdPizza == id).ToList();
+            Pizza pizza = _dbContext.Pizzas.Where(x => x.Id == id).FirstOrDefault();
             foreach (PizzaProducts pizzaProduct in pizzaProducts)
             {
                 pizzaProduct.Product = _dbContext.Products.FirstOrDefault(u => u.Id == pizzaProduct.IdProduct);
@@ -31,13 +32,18 @@ namespace PizzeriaManagementApp.Controllers
                     IdPizza = id
                 });
             }
-            return View(pizzaProducts);
+            PizzaProductsIndexVM pizzaProductVM = new()
+            {
+                PizzaName = pizza.Name,
+                PizzaProducts = pizzaProducts
+            };
+            return View(pizzaProductVM);
         }
 
         public IActionResult Create(Guid id)
         {
             Guid[] existingProductsIds = _dbContext.PizzaProducts.Where(x => x.IdPizza == id).Select(x => x.IdProduct).ToArray();
-            PizzaProductsViewModel pizzaProductsViewModel = new()
+            PizzaProductsVM pizzaProductsViewModel = new()
             {
                 IdPizza = id,
                 ProductsCheckBoxList = _dbContext.Products.Where(x => !existingProductsIds.Contains(x.Id)).Select(x => new CheckBoxItem
@@ -52,7 +58,7 @@ namespace PizzeriaManagementApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(PizzaProductsViewModel pizzaProductsViewModel)
+        public IActionResult Create(PizzaProductsVM pizzaProductsViewModel)
         {
             foreach (CheckBoxItem pizzaProductCheckBox in pizzaProductsViewModel.ProductsCheckBoxList)
             {

@@ -11,6 +11,8 @@ namespace PizzeriaManagementApp.Models
         [Display(Name = "Product name")]
         public string Name { get; set; }
         public float Price { get; set; }
+        [Required]
+        public string Image { get; set; }
         public virtual IEnumerable<PizzaProducts> PizzaProducts { get; set; }
     }
 }

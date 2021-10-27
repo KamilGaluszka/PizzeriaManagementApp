@@ -1,6 +1,6 @@
 ﻿@model PizzeriaManagementApp.Models.Pizza
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <input asp-for="Id" hidden />
     <div class="border p-3">
         <div class="form-group row">
@@ -27,6 +27,15 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Image"></label>
+                    </div>
+                    <div class="col-8">
+                        <input type="file" name="files" id="uploadBox" accept="image/png, image/gif, image/jpeg" class="form-control" />
+                        <span asp-validation-for="Image" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <div class="col-8 offset-4 row">
                         <div class="col">
                             <input type="submit" class="btn btn-warning w-100" value="Update" />
@@ -40,7 +49,7 @@
                 </div>
             </div>
             <div class="col-4">
-
+                <img src="@WC.PizzaImagePath@Model.Image" class="w-100" style="border-radius:5px; border: 1px solid #bbb" />
             </div>
         </div>
     </div>

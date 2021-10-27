@@ -36,7 +36,7 @@ namespace PizzeriaManagementApp.Controllers
                 Value = x.Id.ToString()
             });
 
-            ProductViewModel productViewModel = new()
+            ProductVM productViewModel = new()
             {
                 Product = new Product(),
                 Categories = categoryDropDown
@@ -77,7 +77,7 @@ namespace PizzeriaManagementApp.Controllers
                 Value = x.Id.ToString()
             });
 
-            ProductViewModel productViewModel = new()
+            ProductVM productViewModel = new()
             {
                 Product = product,
                 Categories = categoryDropDown

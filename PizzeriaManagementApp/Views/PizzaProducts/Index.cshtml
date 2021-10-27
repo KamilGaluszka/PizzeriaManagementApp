@@ -1,12 +1,12 @@
-﻿@model IEnumerable<PizzeriaManagementApp.Models.PizzaProducts>
+﻿@model PizzeriaManagementApp.ViewModels.PizzaProductsIndexVM
 
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">Pizza products list</h2>
+            <h2 class="text-primary">@Model.PizzaName products list</h2>
         </div>
         <div class="col-6 text-right">
-            <a asp-route-Id="@Model.First().IdPizza" asp-controller="PizzaProducts" asp-action="Create" class=" btn btn-primary">
+            <a asp-route-Id="@Model.PizzaProducts.First().IdPizza" asp-controller="PizzaProducts" asp-action="Create" class=" btn btn-primary">
                 <i class="fas fa-plus"></i>&nbsp; Add products
             </a>
             <a asp-controller="Pizza" asp-action="Index" class=" btn btn-info">
@@ -17,7 +17,7 @@
 
     <br /><br />
 
-    @if (Model.First().Id != Guid.Empty)
+    @if (Model.PizzaProducts.First().Id != Guid.Empty)
     {
         <table class="table table-bordered table-striped w-100">
             <thead>
@@ -31,7 +31,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (PizzaProducts pizzaProduct in Model)
+                @foreach (PizzaProducts pizzaProduct in Model.PizzaProducts)
                 {
                 <tr>
                     <td width="40%">

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace PizzeriaManagementApp.ViewModels
 {
-    public class ProductViewModel
+    public class ProductVM
     {
         public Product Product { get; set; }
         public IEnumerable<SelectListItem> Categories { get; set; }

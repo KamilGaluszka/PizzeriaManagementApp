@@ -12,6 +12,10 @@ namespace PizzeriaManagementApp.Areas.Identity.Pages.Account.Manage
 
         public static string Email => "Email";
 
+        public static string UserInfo => "UserInfo";
+
+        public static string AddressInfo => "AddressInfo";
+
         public static string ChangePassword => "ChangePassword";
 
         public static string DownloadPersonalData => "DownloadPersonalData";
@@ -27,6 +31,10 @@ namespace PizzeriaManagementApp.Areas.Identity.Pages.Account.Manage
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
 
         public static string EmailNavClass(ViewContext viewContext) => PageNavClass(viewContext, Email);
+
+        public static string UserInfoNavClass(ViewContext viewContext) => PageNavClass(viewContext, UserInfo);
+
+        public static string AddressInfoNavClass(ViewContext viewContext) => PageNavClass(viewContext, AddressInfo);
 
         public static string ChangePasswordNavClass(ViewContext viewContext) => PageNavClass(viewContext, ChangePassword);
 

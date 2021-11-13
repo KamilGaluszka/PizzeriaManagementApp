@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PizzeriaManagementApp.Data;
+using PizzeriaManagementApp.Models;
 
 namespace PizzeriaManagementApp
 {
@@ -26,6 +27,10 @@ namespace PizzeriaManagementApp
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddDefaultTokenProviders()
                 .AddDefaultUI()
+                .AddEntityFrameworkStores<PizzeriaDbContext>();
+            services.AddIdentityCore<ApplicationUser>()
+                .AddEntityFrameworkStores<PizzeriaDbContext>();
+            services.AddIdentityCore<Employee>()
                 .AddEntityFrameworkStores<PizzeriaDbContext>();
         }
 

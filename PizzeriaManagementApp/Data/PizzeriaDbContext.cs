@@ -17,5 +17,6 @@ namespace PizzeriaManagementApp.Data
         public DbSet<Pizza> Pizzas { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<Employee> Employees { get; set; }
     }
 }

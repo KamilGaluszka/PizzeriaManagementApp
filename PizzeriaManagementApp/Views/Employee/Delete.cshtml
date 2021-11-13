@@ -1,0 +1,93 @@
+﻿@model PizzeriaManagementApp.Models.Employee
+
+<form method="post" asp-action="DeleteConfirm">
+    <input asp-for="Id" hidden />
+    <div class="border p-3">
+        <div class="form-group row">
+            @if (Model.IdManager is null)
+            {
+                <h2 class="text-info p-3">Delete manager account</h2>
+            }
+            else
+            {
+                <h2 class="text-info p-3">Delete employee account</h2>
+            }
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="FirstName"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="FirstName" class="form-control" disabled />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="LastName"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="LastName" class="form-control" disabled />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Email"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Email" class="form-control" disabled />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="PhoneNumber"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="PhoneNumber" class="form-control" disabled />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Salary"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Salary" class="form-control" disabled />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="StartDate"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="StartDate" class="form-control" disabled />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-8 offset-4 row">
+
+                        <div class="col">
+                            <input type="submit" class="btn btn-danger w-100" value="Delete" />
+                        </div>
+                        @if (Model.IdManager is null)
+                        {
+                            <div class="col">
+                                <a asp-action="ManagerIndex" class="btn btn-info w-100">
+                                    <i class="fas fa-sign-out-alt"></i> &nbsp; Back
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col">
+                                <a asp-action="Index" class="btn btn-info w-100">
+                                    <i class="fas fa-sign-out-alt"></i> &nbsp; Back
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -20,16 +20,16 @@ using PizzeriaManagementApp.Models;
 namespace PizzeriaManagementApp.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
-    public class RegisterModel : PageModel
+    public class RegisterManager : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly PizzeriaDbContext _dbContext;
 
-        public RegisterModel(
+        public RegisterManager(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
@@ -90,11 +90,16 @@ namespace PizzeriaManagementApp.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+            [Required]
+            public float Salary { get; set; }
+            [DataType(DataType.Date)]
+            [Display(Name = "Start date of work")]
+            public DateTime StartDate { get; set; } = DateTime.Now;
         }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            if(!await _roleManager.RoleExistsAsync(WC.AdminRole))
+            if (!await _roleManager.RoleExistsAsync(WC.AdminRole))
             {
                 await _roleManager.CreateAsync(new IdentityRole(WC.AdminRole));
                 await _roleManager.CreateAsync(new IdentityRole(WC.ManagerRole));
@@ -107,7 +112,7 @@ namespace PizzeriaManagementApp.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
+            returnUrl ??= Url.Content("~/Employee/ManagerIndex");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
@@ -121,27 +126,21 @@ namespace PizzeriaManagementApp.Areas.Identity.Pages.Account
                     Town = Input.Town
                 };
                 EntityEntry<Address> addedAddress = await _dbContext.Addresses.AddAsync(address);
-                var user = new ApplicationUser
+                var user = new Employee
                 {
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
                     PhoneNumber = Input.PhoneNumber.ToString(),
                     UserName = Input.Email,
                     Email = Input.Email,
-                    AddressId = addedAddress.Entity.Id
+                    AddressId = addedAddress.Entity.Id,
+                    Salary = Input.Salary,
+                    StartDate = Input.StartDate
                 };
                 IdentityResult result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    IList<IdentityUser> adminUsers = await _userManager.GetUsersInRoleAsync(WC.AdminRole);
-                    if (adminUsers.Count == 0)
-                    {
-                        await _userManager.AddToRoleAsync(user, WC.AdminRole);
-                    }
-                    else
-                    {
-                        await _userManager.AddToRoleAsync(user, WC.CustomerRole);
-                    }
+                    await _userManager.AddToRoleAsync(user, WC.ManagerRole);
 
                     _logger.LogInformation("User created a new account with password.");
 
@@ -162,7 +161,6 @@ namespace PizzeriaManagementApp.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }
                 }

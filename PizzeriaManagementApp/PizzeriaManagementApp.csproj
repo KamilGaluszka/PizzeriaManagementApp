@@ -19,4 +19,10 @@
     <Folder Include="wwwroot\images\pizza\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Areas\Identity\Pages\Account\Register - Copy.cshtml.cs">
+      <DependentUpon>Register.cshtml.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>

@@ -34,38 +34,38 @@
             <tbody>
                 @foreach (Pizza pizza in Model)
                 {
-                <tr>
-                    <td width="40%">
-                        @pizza.Name
-                    </td>
-                    <td width="20%">
-                        @pizza.Price
-                    </td>
-                    <td width="20%">
-                        @if (pizza.PizzaProducts.Count() > 0)
-                        {
-                            <a asp-controller="PizzaProducts" asp-action="Index" asp-route-Id="@pizza.Id" class="btn btn-info mx-2">
-                                <i class="fas fa-eye"></i>&nbsp; Browse
-                            </a>
-                        }
-                        else
-                        {
-                            <a asp-controller="PizzaProducts" asp-action="Create" asp-route-Id="@pizza.Id" class="btn mx-2" style="background-color: forestgreen; color: white">
-                                <i class="fas fa-plus"></i>&nbsp; Add
-                            </a>
-                        }
-                    </td>
-                    <td class="text-center">
-                        <div class="w-75 btn-group" role="group">
-                            <a asp-controller="Pizza" asp-action="Edit" asp-route-Id="@pizza.Id" class="btn btn-warning mx-2">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <a asp-controller="Pizza" asp-action="Delete" asp-route-Id="@pizza.Id" class="btn btn-danger mx-2">
-                                <i class="fas fa-trash-alt"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            @pizza.Name
+                        </td>
+                        <td>
+                            @pizza.Price
+                        </td>
+                        <td>
+                            @if (pizza.PizzaProducts.Count() > 0)
+                            {
+                                <a asp-controller="PizzaProducts" asp-action="Index" asp-route-Id="@pizza.Id" class="btn btn-info mx-2">
+                                    <i class="fas fa-eye"></i>&nbsp; Browse
+                                </a>
+                            }
+                            else
+                            {
+                                <a asp-controller="PizzaProducts" asp-action="Create" asp-route-Id="@pizza.Id" class="btn mx-2" style="background-color: forestgreen; color: white">
+                                    <i class="fas fa-plus"></i>&nbsp; Add
+                                </a>
+                            }
+                        </td>
+                        <td class="text-center">
+                            <div class="w-75 btn-group" role="group">
+                                <a asp-controller="Pizza" asp-action="Edit" asp-route-Id="@pizza.Id" class="btn btn-warning mx-2">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a asp-controller="Pizza" asp-action="Delete" asp-route-Id="@pizza.Id" class="btn btn-danger mx-2">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>

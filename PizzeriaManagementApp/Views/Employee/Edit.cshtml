@@ -1,19 +1,26 @@
 ﻿@model PizzeriaManagementApp.Models.Employee
 
 <form method="post">
-    <input asp-for="Id" hidden />
-    <input asp-for="EmailConfirmed" hidden />
-    <input asp-for="PasswordHash" hidden />
-    <input asp-for="SecurityStamp" hidden />
-    <input asp-for="ConcurrencyStamp" hidden />
-    <input asp-for="PhoneNumberConfirmed" hidden />
-    <input asp-for="TwoFactorEnabled" hidden />
-    <input asp-for="LockoutEnd" hidden />
-    <input asp-for="LockoutEnabled" hidden />
     <input asp-for="AccessFailedCount" hidden />
-    <input asp-for="EndDate" hidden />
-    <input asp-for="IdManager" hidden />
     <input asp-for="AddressId" hidden />
+    <input asp-for="ConcurrencyStamp" hidden />
+    <input asp-for="Email" hidden />
+    <input asp-for="EmailConfirmed" hidden />
+    <input asp-for="EndDate" hidden />
+    <input asp-for="FirstName" hidden />
+    <input asp-for="Id" hidden />
+    <input asp-for="IdManager" hidden />
+    <input asp-for="LastName" hidden />
+    <input asp-for="LockoutEnabled" hidden />
+    <input asp-for="LockoutEnd" hidden />
+    <input asp-for="NormalizedEmail" hidden />
+    <input asp-for="NormalizedUserName" hidden />
+    <input asp-for="PasswordHash" hidden />
+    <input asp-for="PhoneNumber" hidden />
+    <input asp-for="PhoneNumberConfirmed" hidden />
+    <input asp-for="SecurityStamp" hidden />
+    <input asp-for="TwoFactorEnabled" hidden />
+    <input asp-for="UserName" hidden />
     <div class="border p-3">
         <div class="form-group row">
             @if (Model.IdManager is null)
@@ -27,42 +34,6 @@
         </div>
         <div class="row">
             <div class="col-8">
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="FirstName"></label>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="FirstName" class="form-control" />
-                        <span asp-validation-for="FirstName" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="LastName"></label>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="LastName" class="form-control" />
-                        <span asp-validation-for="LastName" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="Email"></label>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="Email" class="form-control" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="PhoneNumber"></label>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="PhoneNumber" class="form-control" />
-                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                    </div>
-                </div>
                 <div class="form-group row">
                     <div class="col-4">
                         <label asp-for="Salary"></label>

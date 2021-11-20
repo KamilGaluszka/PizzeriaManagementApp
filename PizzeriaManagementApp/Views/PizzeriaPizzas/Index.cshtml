@@ -1,15 +1,15 @@
-﻿@model PizzeriaManagementApp.ViewModels.PizzaProductsIndexVM
+﻿@model PizzeriaManagementApp.ViewModels.PizzeriaPizzaIndexVM
 
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">@Model.PizzaName products list</h2>
+            <h2 class="text-primary">@Model.PizzeriaName pizzas list</h2>
         </div>
         <div class="col-6 text-right">
-            <a asp-route-Id="@Model.PizzaProducts.First().IdPizza" asp-controller="PizzaProducts" asp-action="Create" class=" btn btn-success">
-                <i class="fas fa-plus"></i>&nbsp; Add products
+            <a asp-route-Id="@Model.PizzeriaPizzas.First().PizzeriaId" asp-controller="PizzeriaPizzas" asp-action="Create" class="btn btn-success">
+                <i class="fas fa-plus"></i>&nbsp; Add pizzas
             </a>
-            <a asp-controller="Pizza" asp-action="Index" class=" btn btn-primary">
+            <a asp-controller="Pizzeria" asp-action="Index" class="btn btn-primary">
                 <i class="fas fa-arrow-alt-circle-left"></i>&nbsp; Back
             </a>
         </div>
@@ -17,28 +17,28 @@
 
     <br /><br />
 
-    @if (Model.PizzaProducts.First().Id != Guid.Empty)
+    @if (Model.PizzeriaPizzas.First().Id != Guid.Empty)
     {
         <table class="table table-bordered table-striped w-100">
             <thead>
                 <tr>
                     <th>
-                        Product name
+                        Pizza name
                     </th>
                     <th>
-                        Remove product from pizza
+                        Remove pizza from pizzeria
                     </th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (PizzaProducts pizzaProduct in Model.PizzaProducts)
+                @foreach (PizzeriaPizza pizzeriaPizza in Model.PizzeriaPizzas)
                 {
                 <tr>
                     <td>
-                        @pizzaProduct.Product.Name
+                        @pizzeriaPizza.Pizza.Name
                     </td>
                     <td>
-                        <a asp-route-Id="@pizzaProduct.Id" asp-controller="PizzaProducts" asp-action="Delete" class="btn btn-danger m-0 text-white">
+                        <a asp-route-Id="@pizzeriaPizza.Id" asp-controller="PizzeriaPizzas" asp-action="Delete" class="btn btn-danger m-0 text-white">
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     </td>
@@ -49,6 +49,6 @@
     }
     else
     {
-        <p>No pizza products are assigned.</p>
+        <p>No pizzeria pizzas are assigned.</p>
     }
 </div>

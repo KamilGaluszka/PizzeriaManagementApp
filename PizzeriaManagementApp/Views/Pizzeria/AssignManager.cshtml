@@ -1,0 +1,57 @@
+﻿@model PizzeriaManagementApp.ViewModels.PizzeriaCreateVM
+
+<form method="post" asp-action="Edit">
+    <input asp-for="Pizzeria.Id" hidden />
+    <input asp-for="Pizzeria.AddressId" hidden />
+    <input asp-for="Pizzeria.Address.Id" hidden />
+    <input asp-for="Pizzeria.Name" hidden />
+    <input asp-for="Pizzeria.OpenTime" hidden />
+    <input asp-for="Pizzeria.CloseTime" hidden />
+    <input asp-for="Pizzeria.Address.ApartmentNumber" hidden />
+    <input asp-for="Pizzeria.Address.Country" hidden />
+    <input asp-for="Pizzeria.Address.HouseNumber" hidden />
+    <input asp-for="Pizzeria.Address.PostalCode" hidden />
+    <input asp-for="Pizzeria.Address.Street" hidden />
+    <input asp-for="Pizzeria.Address.Town" hidden />
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-info p-3">Assign manager of pizzeria</h2>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Pizzeria.IdManager"></label>
+                    </div>
+                    <div class="col-8">
+                        <select asp-for="Pizzeria.IdManager" asp-items="@Model.Managers" class="form-control">
+                        </select>
+                        <span asp-validation-for="Pizzeria.IdManager" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-8 offset-4 row">
+                        <div class="col">
+                            <input type="submit" class="btn btn-primary w-100" value="Assign" />
+                        </div>
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-info w-100">
+                                <i class="fas fa-sign-out-alt"></i>&nbsp; Back
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts
+{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

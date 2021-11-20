@@ -2,9 +2,9 @@
 
 namespace PizzeriaManagementApp.ViewModels
 {
-    public class CheckBoxItem
+    public class CheckBoxItem<T>
     {
-        public Guid Id { get; set; }
+        public T Id { get; set; }
         public string IdString { get; set; }
         public object Object { get; set; }
         public bool IsChecked { get; set; }

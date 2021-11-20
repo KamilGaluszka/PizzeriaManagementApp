@@ -46,7 +46,7 @@ namespace PizzeriaManagementApp.Controllers
             PizzaProductsVM pizzaProductsViewModel = new()
             {
                 IdPizza = id,
-                ProductsCheckBoxList = _dbContext.Products.Where(x => !existingProductsIds.Contains(x.Id)).Select(x => new CheckBoxItem
+                ProductsCheckBoxList = _dbContext.Products.Where(x => !existingProductsIds.Contains(x.Id)).Select(x => new CheckBoxItem<Guid>
                 {
                     Id = x.Id,
                     Object = x,
@@ -60,7 +60,7 @@ namespace PizzeriaManagementApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(PizzaProductsVM pizzaProductsViewModel)
         {
-            foreach (CheckBoxItem pizzaProductCheckBox in pizzaProductsViewModel.ProductsCheckBoxList)
+            foreach (CheckBoxItem<Guid> pizzaProductCheckBox in pizzaProductsViewModel.ProductsCheckBoxList)
             {
                 if (pizzaProductCheckBox.IsChecked)
                 {

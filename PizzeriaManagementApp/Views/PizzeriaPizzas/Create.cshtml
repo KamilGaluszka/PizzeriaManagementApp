@@ -1,14 +1,14 @@
-﻿@model PizzeriaManagementApp.ViewModels.PizzaProductsVM
+﻿@model PizzeriaManagementApp.ViewModels.PizzeriaPizzaVM
 
 <form method="post" asp-action="Create">
-    <input asp-for="IdPizza" hidden />
+    <input asp-for="IdPizzeria" hidden />
     <div class="border p-3">
         <div class="form-group row">
-            <h2 class="text-info p-3">Add products to pizza</h2>
+            <h2 class="text-info p-3">Add pizzas to pizzeria</h2>
         </div>
         <div class="row">
             <div class="col-8 offset-2">
-                @if (Model.ProductsCheckBoxList.Count > 0)
+                @if (Model.PizzasCheckBoxList.Count > 0)
                 {
                     <div class="form-group row">
                         <table class=" table table-bordered table-striped" style="width:100%">
@@ -18,19 +18,19 @@
                                         Is selected
                                     </th>
                                     <th>
-                                        Product name
+                                        Pizza name
                                     </th>
                                 </tr>
                             </thead>
-                            @for (int i = 0; i < Model.ProductsCheckBoxList.Count(); i++)
+                            @for (int i = 0; i < Model.PizzasCheckBoxList.Count(); i++)
                             {
-                                @Html.HiddenFor(p => p.ProductsCheckBoxList[i].Id)
+                                @Html.HiddenFor(p => p.PizzasCheckBoxList[i].Id)
                                 <tr>
                                     <td>
-                                        @Html.CheckBoxFor(p => p.ProductsCheckBoxList[i].IsChecked)
+                                        @Html.CheckBoxFor(p => p.PizzasCheckBoxList[i].IsChecked)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(p => ((Product)p.ProductsCheckBoxList[i].Object).Name)
+                                        @Html.DisplayFor(p => ((Pizza)p.PizzasCheckBoxList[i].Object).Name)
                                     </td>
                                 </tr>
                             }
@@ -39,18 +39,18 @@
                 }
                 else
                 {
-                    <p class="text-center">All possible products are already assigned to this pizza</p>
+                    <p class="text-center">All possible pizzas are already assigned to this pizzeria</p>
                 }
                 <div class="form-group row">
                     <div class="col-8 offset-2 row">
-                        @if (Model.ProductsCheckBoxList.Count > 0)
+                        @if (Model.PizzasCheckBoxList.Count > 0)
                         {
                             <div class="col">
                                 <input type="submit" class="btn btn-success w-100" value="Add" />
                             </div>
                         }
                         <div class="col">
-                            <a asp-controller="PizzaProducts" asp-route-Id="@Model.IdPizza" asp-action="Index" class="btn btn-primary w-100">Back</a>
+                            <a asp-controller="PizzeriaPizzas" asp-route-Id="@Model.IdPizzeria" asp-action="Index" class="btn btn-primary w-100">Back</a>
                         </div>
                     </div>
                 </div>

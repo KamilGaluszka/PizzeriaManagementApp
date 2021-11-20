@@ -6,6 +6,6 @@ namespace PizzeriaManagementApp.ViewModels
     public class PizzaProductsVM
     {
         public Guid IdPizza { get; set; }
-        public List<CheckBoxItem> ProductsCheckBoxList { get; set; }
+        public List<CheckBoxItem<Guid>> ProductsCheckBoxList { get; set; }
     }
 }

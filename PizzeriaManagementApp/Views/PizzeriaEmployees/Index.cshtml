@@ -1,0 +1,54 @@
+﻿@model PizzeriaManagementApp.ViewModels.PizzeriaEmployeesIndexVM
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">@Model.PizzeriaName employees list</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-route-Id="@Model.PizzeriaEmployees.First().PizzeriaId" asp-controller="PizzeriaEmployees" asp-action="Create" class="btn btn-success">
+                <i class="fas fa-plus"></i>&nbsp; Add employees
+            </a>
+            <a asp-controller="Pizzeria" asp-action="Index" class="btn btn-primary">
+                <i class="fas fa-arrow-alt-circle-left"></i>&nbsp; Back
+            </a>
+        </div>
+    </div>
+
+    <br /><br />
+
+    @if (Model.PizzeriaEmployees.First().Id != Guid.Empty)
+    {
+        <table class="table table-bordered table-striped w-100">
+            <thead>
+                <tr>
+                    <th>
+                        Employee name
+                    </th>
+                    <th>
+                        Remove employee from pizzeria
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (PizzeriaEmployee pizzeriaEmployee in Model.PizzeriaEmployees)
+                {
+                <tr>
+                    <td>
+                        @($"{ pizzeriaEmployee.Employee.FirstName } { pizzeriaEmployee.Employee.LastName }")
+                    </td>
+                    <td>
+                        <a asp-route-Id="@pizzeriaEmployee.Id" asp-controller="PizzeriaEmployees" asp-action="Delete" class="btn btn-danger m-0 text-white">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No pizzeria employees are assigned.</p>
+    }
+</div>

@@ -1,0 +1,109 @@
+﻿@model IEnumerable<PizzeriaManagementApp.Models.Pizzeria>
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Pizzeria list</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-controller="Pizzeria" asp-action="Create" class="btn btn-success">
+                <i class="fas fa-plus"></i> &nbsp; Create new pizzeria
+            </a>
+        </div>
+    </div>
+
+    <br /><br />
+
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered table-striped w-100">
+            <thead>
+                <tr>
+                    <th>
+                        Pizzeria name
+                    </th>
+                    <th>
+                        Open hours
+                    </th>
+                    <th>
+                        Manager
+                    </th>
+                    <th>
+                        Employees
+                    </th>
+                    <th>
+                        Pizzas
+                    </th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Pizzeria pizzeria in Model)
+                {
+                    <tr>
+                        <td>
+                            @pizzeria.Name
+                        </td>
+                        <td>
+                            @(pizzeria.OpenTime.ToString("HH:mm tt")+" - "+ pizzeria.CloseTime.ToString("HH:mm tt"))
+                        </td>
+                        <td>
+                            @if (pizzeria.Manager == null)
+                            {
+                                <a asp-controller="Pizzeria" asp-action="AssignManager" asp-route-Id="@pizzeria.Id" class="btn btn-info mx-2">
+                                    <i class="fas fa-user-tie"></i>&nbsp; Assign
+                                </a>
+                            }
+                            else
+                            {
+                                @($"{ pizzeria.Manager.FirstName } { pizzeria.Manager.LastName}")
+                            }
+                        </td>
+                        <td>
+                            @if (pizzeria.PizzeriaEmployees.Count() > 0)
+                            {
+                                <a asp-controller="PizzeriaEmployees" asp-action="Index" asp-route-Id="@pizzeria.Id" class="btn btn-info mx-2">
+                                    <i class="fas fa-eye"></i>&nbsp; Browse
+                                </a>
+                            }
+                            else
+                            {
+                                <a asp-controller="PizzeriaEmployees" asp-action="Create" asp-route-Id="@pizzeria.Id" class="btn mx-2" style="background-color: forestgreen; color: white">
+                                    <i class="fas fa-user"></i>&nbsp; Add
+                                </a>
+                            }
+                        </td>
+                        <td>
+                            @if (pizzeria.PizzeriaPizzas.Count() > 0)
+                            {
+                                <a asp-controller="PizzeriaPizzas" asp-action="Index" asp-route-Id="@pizzeria.Id" class="btn btn-info mx-2">
+                                    <i class="fas fa-eye"></i>&nbsp; Browse
+                                </a>
+                            }
+                            else
+                            {
+                                <a asp-controller="PizzeriaPizzas" asp-action="Create" asp-route-Id="@pizzeria.Id" class="btn mx-2" style="background-color: forestgreen; color: white">
+                                    <i class="fas fa-pizza-slice"></i>&nbsp; Add
+                                </a>
+                            }
+                        </td>
+                        <td class="text-center">
+                            <div class="w-75 btn-group" role="group">
+                                <a asp-controller="Pizzeria" asp-action="Edit" asp-route-Id="@pizzeria.Id" class="btn btn-warning mx-2">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a asp-controller="Pizzeria" asp-action="Delete" asp-route-Id="@pizzeria.Id" class="btn btn-danger mx-2">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No pizzeria exists.</p>
+    }
+</div>

@@ -14,5 +14,6 @@ namespace PizzeriaManagementApp.Models
         [Required]
         public string Image { get; set; }
         public virtual IEnumerable<PizzaProducts> PizzaProducts { get; set; }
+        public virtual IEnumerable<PizzeriaPizza> PizzeriaPizzas { get; set; }
     }
 }

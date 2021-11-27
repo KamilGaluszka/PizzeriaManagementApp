@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using PizzeriaManagementApp.Data;
 using PizzeriaManagementApp.Models;
+using PizzeriaManagementApp.Utility;
 using PizzeriaManagementApp.ViewModels;
 using System;
 using System.Collections;
@@ -47,7 +49,7 @@ namespace PizzeriaManagementApp.Controllers
             return View(homeVM);
         }
 
-        public IActionResult Menu(Guid id)
+        public IActionResult Menu(Guid id, bool? isAdded)
         {
             Pizzeria pizzeria = _dbContext.Pizzerias.Where(x => x.Id == id).FirstOrDefault();
             IEnumerable<Pizza> pizzas = _dbContext.PizzeriaPizzas
@@ -62,7 +64,37 @@ namespace PizzeriaManagementApp.Controllers
                 Pizzas = pizzas,
                 Pizzeria = pizzeria
             };
+            if(isAdded is not null)
+            {
+                pizzeriaMenuVM.IsAdded = (bool)isAdded;
+            };
             return View(pizzeriaMenuVM);
+        }
+
+        public IActionResult ShoppingCartAdd(Guid id, Guid pizzaId)
+        {
+            List<ShoppingCart> shoppingCartList = new List<ShoppingCart>();
+            if (HttpContext.Session.Get<IEnumerable<ShoppingCart>>(WC.SessionCart) is not null 
+                && HttpContext.Session.Get<IEnumerable<ShoppingCart>>(WC.SessionCart).Any())
+            {
+                shoppingCartList = HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart);
+            }
+            foreach (ShoppingCart shoppingCart in shoppingCartList)
+            {
+                if (shoppingCart.PizzeriaId != id)
+                {
+                    shoppingCartList = new List<ShoppingCart>();
+                    break;
+                }
+            }
+            shoppingCartList.Add(new ShoppingCart
+            {
+                PizzaId = pizzaId,
+                PizzeriaId = id
+            });
+            
+            HttpContext.Session.Set(WC.SessionCart, shoppingCartList);
+            return RedirectToAction("Menu", new { id, isAdded = true });
         }
 
         public IActionResult Privacy()

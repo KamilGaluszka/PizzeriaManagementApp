@@ -4,6 +4,8 @@
     {
         public const string PizzaImagePath = @"\images\pizza\";
 
+        public const string SessionCart = "ShoppingCardSession";
+
         public const string AdminRole = "Admin";
         public const string ManagerRole = "Manager";
         public const string EmployeeRole = "Employee";

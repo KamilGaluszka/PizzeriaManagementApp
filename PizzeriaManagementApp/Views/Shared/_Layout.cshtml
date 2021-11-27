@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@using PizzeriaManagementApp.Utility
+@inject IHttpContextAccessor HttpContextAccesor
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -45,6 +49,18 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Pizzeria" asp-action="Index">Pizzeria</a>
                             </li>
                         }
+                        <li>
+                            <a asp-action="Index" asp-controller="Cart" class="nav-link">
+                                @{ 
+                                    int count = 0;
+                                    if(HttpContextAccesor.HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart) is not null)
+                                    {
+                                        count = HttpContextAccesor.HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart).Count;
+                                    }
+                                }
+                                <i class="fas fa-shopping-cart"></i> &nbsp; (@count)
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PizzeriaManagementApp.Data;
 using PizzeriaManagementApp.Models;
+using System;
 
 namespace PizzeriaManagementApp
 {
@@ -32,6 +33,13 @@ namespace PizzeriaManagementApp
                 .AddEntityFrameworkStores<PizzeriaDbContext>();
             services.AddIdentityCore<Employee>()
                 .AddEntityFrameworkStores<PizzeriaDbContext>();
+            services.AddHttpContextAccessor();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -51,7 +59,7 @@ namespace PizzeriaManagementApp
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();

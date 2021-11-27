@@ -1,0 +1,62 @@
+﻿@model List<PizzeriaManagementApp.ViewModels.PizzaCartItemVM>
+@using PizzeriaManagementApp.ViewModels
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Pizzas in cart list</h2>
+        </div>
+    </div>
+
+    <br /><br />
+
+    @if(Model.Count() > 0)
+    {
+        <table class="table table-bordered table-striped w-100">
+            <thead>
+                <tr>
+                    <th>
+                        Pizzeria name
+                    </th>
+                    <th>
+                        Pizza name
+                    </th>
+                    <th>
+                        Amount
+                    </th>
+                    <th>Remove from card</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(PizzaCartItemVM pizzaCartVM in Model)
+                {
+                    <tr>
+                        <td class="w-25">
+                            @pizzaCartVM.Pizzeria.Name
+                        </td>
+                        <td class="w-25">
+                            @pizzaCartVM.Pizza.Name
+                        </td>
+                        <td class="w-25">
+                            @pizzaCartVM.Amount
+                        </td>
+                        <td class="text-center">
+                            <a asp-controller="Cart" asp-action="Delete" asp-route-Id="@pizzaCartVM.Pizza.Id" class="btn btn-danger w-75 mx-2">
+                                <i class="fas fa-cart-arrow-down"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="col-md-12 text-center">
+            <a asp-controller="Order" asp-action="Create" class="btn btn-primary w-25 mx-2">
+                <i class="fas fa-shopping-basket"></i> &nbsp; Make an order
+            </a>
+        </div>
+    }
+    else
+    {
+        <p>No pizza in cart exists.</p>
+    }
+</div>

@@ -7,5 +7,6 @@ namespace PizzeriaManagementApp.ViewModels
     {
         public Pizzeria Pizzeria { get; set; }
         public IEnumerable<Pizza> Pizzas { get; set; }
+        public bool IsAdded { get; set; } = false;
     }
 }

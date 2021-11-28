@@ -6,9 +6,12 @@
             <h2 class="text-primary">Pizzeria list</h2>
         </div>
         <div class="col-6 text-right">
-            <a asp-controller="Pizzeria" asp-action="Create" class="btn btn-success">
-                <i class="fas fa-plus"></i> &nbsp; Create new pizzeria
-            </a>
+            @if (User.IsInRole(WC.AdminRole))
+            {
+                <a asp-controller="Pizzeria" asp-action="Create" class="btn btn-success">
+                    <i class="fas fa-plus"></i> &nbsp; Create new pizzeria
+                </a>
+            }
         </div>
     </div>
 
@@ -28,9 +31,12 @@
                     <th>
                         Manager
                     </th>
-                    <th>
-                        Employees
-                    </th>
+                    @if (!User.IsInRole(WC.AdminRole))
+                    {
+                        <th>
+                            Employees
+                        </th>
+                    }
                     <th>
                         Pizzas
                     </th>
@@ -59,20 +65,24 @@
                                 @($"{ pizzeria.Manager.FirstName } { pizzeria.Manager.LastName}")
                             }
                         </td>
-                        <td>
-                            @if (pizzeria.PizzeriaEmployees.Count() > 0)
-                            {
-                                <a asp-controller="PizzeriaEmployees" asp-action="Index" asp-route-Id="@pizzeria.Id" class="btn btn-info mx-2">
-                                    <i class="fas fa-eye"></i>&nbsp; Browse
-                                </a>
-                            }
-                            else
-                            {
-                                <a asp-controller="PizzeriaEmployees" asp-action="Create" asp-route-Id="@pizzeria.Id" class="btn mx-2" style="background-color: forestgreen; color: white">
-                                    <i class="fas fa-user"></i>&nbsp; Add
-                                </a>
-                            }
-                        </td>
+                        @if (!User.IsInRole(WC.AdminRole))
+                        {
+                            <td>
+                            
+                                @if (pizzeria.PizzeriaEmployees.Count() > 0)
+                                {
+                                    <a asp-controller="PizzeriaEmployees" asp-action="Index" asp-route-Id="@pizzeria.Id" class="btn btn-info mx-2">
+                                        <i class="fas fa-eye"></i>&nbsp; Browse
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a asp-controller="PizzeriaEmployees" asp-action="Create" asp-route-Id="@pizzeria.Id" class="btn mx-2" style="background-color: forestgreen; color: white">
+                                        <i class="fas fa-user"></i>&nbsp; Add
+                                    </a>
+                                }
+                            </td>
+                        }
                         <td>
                             @if (pizzeria.PizzeriaPizzas.Count() > 0)
                             {

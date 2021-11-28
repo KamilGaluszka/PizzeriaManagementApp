@@ -21,5 +21,8 @@ namespace PizzeriaManagementApp.Data
         public DbSet<PizzeriaPizza> PizzeriaPizzas { get; set; }
         public DbSet<PizzeriaEmployee> PizzeriaEmployees { get; set; }
         public DbSet<Pizzeria> Pizzerias { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<CartOrders> CartOrders { get; set; }
+        public DbSet<OrderAddress> OrderAddresses { get; set; }
     }
 }

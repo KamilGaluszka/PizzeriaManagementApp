@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,17 +15,32 @@ namespace PizzeriaManagementApp.Controllers
     public class PizzeriaController : Controller
     {
         private readonly PizzeriaDbContext _dbContext;
-        private readonly IWebHostEnvironment _webHost;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public PizzeriaController(PizzeriaDbContext dbContext, IWebHostEnvironment webHost)
+        public PizzeriaController(PizzeriaDbContext dbContext, UserManager<IdentityUser> userManager)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-            _webHost = webHost ?? throw new ArgumentNullException(nameof(webHost));
+            _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
         }
 
         public IActionResult Index()
         {
-            IEnumerable<Pizzeria> pizzerias = _dbContext.Pizzerias.Include(x => x.PizzeriaPizzas).Include(x => x.PizzeriaEmployees).Include(x => x.Manager);
+            List<Pizzeria> pizzerias = new();
+            if(User.IsInRole(WC.AdminRole))
+            {
+                pizzerias = _dbContext.Pizzerias
+                    .Include(x => x.PizzeriaPizzas)
+                    .Include(x => x.PizzeriaEmployees)
+                    .Include(x => x.Manager).ToList();
+            }
+            else
+                pizzerias = _dbContext.Pizzerias
+                .Include(x => x.PizzeriaPizzas)
+                .Include(x => x.PizzeriaEmployees)
+                .ThenInclude(x => x.Employee)
+                .Include(x => x.Manager)
+                .Where(x => x.IdManager == _userManager.GetUserId(User))
+                .ToList();
             return View(pizzerias);
         }
 

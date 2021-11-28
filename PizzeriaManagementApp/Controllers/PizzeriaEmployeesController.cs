@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using PizzeriaManagementApp.Data;
 using PizzeriaManagementApp.Models;
 using PizzeriaManagementApp.ViewModels;
@@ -11,19 +12,26 @@ namespace PizzeriaManagementApp.Controllers
     public class PizzeriaEmployeesController : Controller
     {
         private readonly PizzeriaDbContext _dbContext;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public PizzeriaEmployeesController(PizzeriaDbContext dbContext)
+        public PizzeriaEmployeesController(PizzeriaDbContext dbContext, UserManager<IdentityUser> userManager)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
         }
 
         public IActionResult Index(Guid id)
         {
-            ICollection<PizzeriaEmployee> pizzeriaEmployees = _dbContext.PizzeriaEmployees.Where(x => x.PizzeriaId == id).ToList();
-            Pizzeria pizzeria = _dbContext.Pizzerias.Where(x => x.Id == id).FirstOrDefault();
+            ICollection<PizzeriaEmployee> pizzeriaEmployees = _dbContext.PizzeriaEmployees
+                .Where(x => x.PizzeriaId == id)
+                .ToList();
+            Pizzeria pizzeria = _dbContext.Pizzerias
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
             foreach (PizzeriaEmployee pizzeriaEmployee in pizzeriaEmployees)
             {
-                pizzeriaEmployee.Employee = _dbContext.Employees.FirstOrDefault(u => u.Id == pizzeriaEmployee.EmployeeId);
+                pizzeriaEmployee.Employee = _dbContext.Employees
+                    .FirstOrDefault(u => u.Id == pizzeriaEmployee.EmployeeId);
             }
             if (!pizzeriaEmployees.Any())
             {
@@ -42,13 +50,17 @@ namespace PizzeriaManagementApp.Controllers
 
         public IActionResult Create(Guid id)
         {
-            string[] existingEmployeesIds = _dbContext.PizzeriaEmployees.Where(x => x.PizzeriaId == id).Select(x => x.EmployeeId).ToArray();
+            string[] existingEmployeesIds = _dbContext.PizzeriaEmployees
+                .Where(x => x.PizzeriaId == id)
+                .Select(x => x.EmployeeId)
+                .ToArray();
             PizzeriaEmployeesVM pizzeriaPizzasVM = new()
             {
                 IdPizzeria = id,
                 EmployeesCheckBoxList = _dbContext.Employees
                     .Where(x => !existingEmployeesIds.Contains(x.Id))
                     .Where(x => x.IdManager != null)
+                    .Where(x => x.IdManager == _userManager.GetUserId(User))
                     .Select(x => new CheckBoxItem<string>
                 {
                     Id = x.Id,

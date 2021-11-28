@@ -1,0 +1,106 @@
+﻿@model PizzeriaManagementApp.ViewModels.OrderCreateVM
+
+<form method="post" asp-action="Create">
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-info p-3">Make an order</h2>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="TotalPrice"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="TotalPrice" class="form-control" value="@Model.TotalPrice" disabled />
+                        <span asp-validation-for="TotalPrice" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Payment"></label>
+                    </div>
+                    <div class="col-8">
+                        <select asp-for="Payment" asp-items="@Model.Payments" class="form-control">
+                        </select>
+                        <span asp-validation-for="Payment" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Address.Country"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Address.Country" class="form-control" />
+                        <span asp-validation-for="Address.Country" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Address.PostalCode"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Address.PostalCode" class="form-control" />
+                        <span asp-validation-for="Address.PostalCode" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Address.Town"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Address.Town" class="form-control" />
+                        <span asp-validation-for="Address.Town" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Address.Street"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Address.Street" class="form-control" />
+                        <span asp-validation-for="Address.Street" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Address.HouseNumber"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Address.HouseNumber" class="form-control" />
+                        <span asp-validation-for="Address.HouseNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Address.ApartmentNumber"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Address.ApartmentNumber" class="form-control" />
+                        <span asp-validation-for="Address.ApartmentNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-8 offset-4 row">
+                        <div class="col">
+                            <input type="submit" class="btn btn-success w-100" value="Create" />
+                        </div>
+                        <div class="col">
+                            <a asp-controller="Cart" asp-action="Index" class="btn btn-info w-100">
+                                <i class="fas fa-sign-out-alt"></i> &nbsp; Back
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts 
+{
+    @{ <partial name="_ValidationScriptsPartial" />}
+}

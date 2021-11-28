@@ -40,15 +40,15 @@ namespace PizzeriaManagementApp.Controllers
                 pizzas.Add(_dbContext.Pizzas.Where(x => x.Id == item).FirstOrDefault());
             }
              
-            var test = pizzas.GroupBy(x => x);
+            IEnumerable<IGrouping<Pizza, Pizza>> groupsByPizza = pizzas.GroupBy(x => x);
             List<PizzaCartItemVM> pizzasWithAmount = new List<PizzaCartItemVM>();
-            foreach (var item in test)
+            foreach (IGrouping<Pizza, Pizza> groupByPizza in groupsByPizza)
             {
                 pizzasWithAmount.Add(new PizzaCartItemVM()
                 {
                     Pizzeria = pizzeria,
-                    Pizza = item.Key,
-                    Amount = item.Count()
+                    Pizza = groupByPizza.Key,
+                    Amount = groupByPizza.Count()
                 });
             }
 

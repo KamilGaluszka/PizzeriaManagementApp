@@ -21,12 +21,6 @@
                         Pizzas in order
                     </th>
                     <th>
-                        Order address
-                    </th>
-                    <th>
-                        Total price
-                    </th>
-                    <th>
                         Created on
                     </th>
                     <th>
@@ -35,7 +29,7 @@
                     <th>
                         Payment
                     </th>
-                    @if (!User.IsInRole(WC.CustomerRole) && User.Identity.IsAuthenticated)
+                    @if (User.Identity.IsAuthenticated)
                     {
                         <th>
                             Actions
@@ -62,13 +56,7 @@
                             }
                         </td>
                         <td>
-                            @($"{order.Address.Country} {order.Address.Street} {order.Address.HouseNumber} {order.Address.ApartmentNumber} {order.Address.Town} {order.Address.PostalCode}")
-                        </td>
-                        <td>
-                            @order.TotalPrice
-                        </td>
-                        <td>
-                            @order.CreatedOn.ToString("HH:mm:ss tt")
+                            @order.CreatedOn.ToString("HH:mm:ss dd-MM-yyyy tt")
                         </td>
                         <td>
                             @order.Status
@@ -76,10 +64,10 @@
                         <td>
                             @order.Payment
                         </td>
-                        @if(!User.IsInRole(WC.CustomerRole) && User.Identity.IsAuthenticated)
+                        @if(User.Identity.IsAuthenticated)
                         {
                             <td class="text-center">
-                            <a asp-controller="Order" asp-action="Update" asp-route-Id="@order.Id" class="btn btn-primary w-75 mx-2">
+                            <a asp-controller="Order" asp-action="Status" asp-route-Id="@order.Id" class="btn btn-primary w-75 mx-2">
                                 <i class="fas fa-eye"></i>
                             </a>
                         </td>

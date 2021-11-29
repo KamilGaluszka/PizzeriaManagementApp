@@ -215,13 +215,79 @@ namespace PizzeriaManagementApp.Controllers
                 }
                 _dbContext.SaveChanges();
                 HttpContext.Session.Set(WC.SessionCart, new List<ShoppingCart>());
-                if (User.IsInRole(WC.CustomerRole))
-                {
-                    return RedirectToAction("Index");
-                }
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Status", new { id = order.Id });
             }
             return View(orderCreateVM);
+        }
+
+        public IActionResult Status(Guid? id)
+        {
+            if (id == Guid.Empty || id is null)
+            {
+                return NotFound();
+            }
+
+            Order order = _dbContext.Orders
+                .Include(x => x.CartOrders)
+                .ThenInclude(x => x.Pizza)
+                .Include(x => x.Customer)
+                .Include(x => x.Address)
+                .Include(x => x.Pizzeria)
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
+            if (order is null)
+            {
+                return NotFound();
+            }
+
+            return View(order);
+        }
+
+        public IActionResult StatusChange(Guid? id, string status)
+        {
+            if (id == Guid.Empty || id is null)
+            {
+                return NotFound();
+            }
+
+            Order order = _dbContext.Orders
+                .Include(x => x.CartOrders)
+                .ThenInclude(x => x.Pizza)
+                .Include(x => x.Customer)
+                .Include(x => x.Address)
+                .Include(x => x.Pizzeria)
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
+            if (order is null)
+            {
+                return NotFound();
+            }
+
+            switch (status)
+            {
+                case WC.Ordered:
+                    order.Status = WC.Ordered;
+                    break;
+                case WC.InProgress:
+                    order.Status = WC.InProgress;
+                    break;
+                case WC.Baking:
+                    order.Status = WC.Baking;
+                    break;
+                case WC.Delivering:
+                    order.Status = WC.Delivering;
+                    break;
+                case WC.Done:
+                    order.Status = WC.Done;
+                    break;
+                default:
+                    return NotFound();
+            }
+
+            _dbContext.Orders.Update(order);
+            _dbContext.SaveChanges();
+
+            return RedirectToAction("Status", new { id = order.Id });
         }
     }
 }

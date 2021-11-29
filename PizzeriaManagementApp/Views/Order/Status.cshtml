@@ -1,0 +1,104 @@
+﻿@model PizzeriaManagementApp.Models.Order
+@using System.Globalization
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Order status: @Model.Status</h2>
+            <h4 class="text-secondary">Total price: @Model.TotalPrice.ToString("C", new CultureInfo("en-US"))</h4>
+        </div>
+    </div>
+
+    <br /><br />
+
+    <table class="table table-bordered table-striped w-100">
+        <thead>
+            <tr>
+                <th colspan="3">
+                    Address
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @($"{Model.Address.Country}, {Model.Address.Town}")
+                </td>
+                <td>
+                    @if (Model.Address.ApartmentNumber is null)
+                    {
+                        @($"{Model.Address.HouseNumber} {Model.Address.Street}")
+                    }
+                    else
+                    {
+                        @($"{Model.Address.HouseNumber}/{Model.Address.ApartmentNumber} {Model.Address.Street}")
+                    }
+                </td>
+                <td>
+                    @Model.Address.PostalCode
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br /><br />
+
+    <table class="table table-bordered table-striped w-100">
+        <thead>
+            <tr>
+                <th>
+                    Pizza name
+                </th>
+                <th>
+                    Amount
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (CartOrders cartOrder in Model.CartOrders)
+            {
+                <tr>
+                    <td>
+                        @cartOrder.Pizza.Name
+                    </td>
+                    <td>
+                        @cartOrder.Amount
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <br /><br />
+
+    <div class="col-md-12 text-center">
+        @if (!User.IsInRole(WC.CustomerRole) && User.Identity.IsAuthenticated)
+        {
+            switch (Model.Status)
+            {
+                case WC.Ordered:
+                    <a asp-controller="Order" asp-action="StatusChange" asp-route-Id="@Model.Id" asp-route-status="@WC.InProgress" class="btn btn-primary w-25 mx-2">
+                        <i class="fas fa-spinner"></i> &nbsp; Change to @WC.InProgress
+                    </a>
+                    break;
+                case WC.InProgress:
+                    <a asp-controller="Order" asp-action="StatusChange" asp-route-Id="@Model.Id" asp-route-status="@WC.Baking" class="btn w-25 mx-2" style="background-color: coral">
+                        <i class="fas fa-fire"></i> &nbsp; Change to @WC.Baking
+                    </a>
+                    break;
+                case WC.Baking:
+                    <a asp-controller="Order" asp-action="StatusChange" asp-route-Id="@Model.Id" asp-route-status="@WC.Delivering" class="btn w-25 mx-2" style="background-color: gold">
+                        <i class="fas fa-truck"></i> &nbsp; Change to @WC.Delivering
+                    </a>
+                    break;
+                case WC.Delivering:
+                    <a asp-controller="Order" asp-action="StatusChange" asp-route-Id="@Model.Id" asp-route-status="@WC.Done" class="btn w-25 mx-2" style="background-color: lightgreen">
+                        <i class="fas fa-handshake"></i> &nbsp; Change to @WC.Done
+                    </a>
+                    break;
+                default:
+                    break;
+            }
+        }
+    </div>
+</div>

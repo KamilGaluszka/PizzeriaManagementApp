@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PizzeriaManagementApp.Data;
 using PizzeriaManagementApp.Models;
@@ -8,6 +9,7 @@ using System.Linq;
 
 namespace PizzeriaManagementApp.Controllers
 {
+    [Authorize(Roles = "Admin, Manager")]
     public class EmployeeController : Controller
     {
         private readonly PizzeriaDbContext _dbContext;

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,6 +13,7 @@ using System.Linq;
 
 namespace PizzeriaManagementApp.Controllers
 {
+    [Authorize(Roles = "Admin, Manager")]
     public class PizzeriaController : Controller
     {
         private readonly PizzeriaDbContext _dbContext;
@@ -44,6 +46,7 @@ namespace PizzeriaManagementApp.Controllers
             return View(pizzerias);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             IEnumerable<SelectListItem> menagersDropDown = _dbContext.Employees.Where(x => x.IdManager == null).Select(x => new SelectListItem
@@ -61,6 +64,7 @@ namespace PizzeriaManagementApp.Controllers
             return View(pizzeriaCreateVM);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Pizzeria pizzeria)

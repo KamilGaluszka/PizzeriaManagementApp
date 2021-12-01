@@ -13,6 +13,7 @@ using System.Linq;
 
 namespace PizzeriaManagementApp.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
         private readonly PizzeriaDbContext _dbContext;

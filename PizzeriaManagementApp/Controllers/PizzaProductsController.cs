@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PizzeriaManagementApp.Data;
 using PizzeriaManagementApp.Models;
 using PizzeriaManagementApp.ViewModels;
@@ -8,6 +9,7 @@ using System.Linq;
 
 namespace PizzeriaManagementApp.Controllers
 {
+    [Authorize(Roles = "Admin, Manager")]
     public class PizzaProductsController : Controller
     {
         private readonly PizzeriaDbContext _dbContext;

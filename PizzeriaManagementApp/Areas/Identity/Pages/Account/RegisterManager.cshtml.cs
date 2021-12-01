@@ -19,7 +19,7 @@ using PizzeriaManagementApp.Models;
 
 namespace PizzeriaManagementApp.Areas.Identity.Pages.Account
 {
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin")]
     public class RegisterManager : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;

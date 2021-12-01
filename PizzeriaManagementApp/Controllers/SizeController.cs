@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PizzeriaManagementApp.Data;
 using PizzeriaManagementApp.Models;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 
 namespace PizzeriaManagementApp.Controllers
 {
+    [Authorize(Roles = "Admin, Manager")]
     public class SizeController : Controller
     {
         private readonly PizzeriaDbContext _dbContext;

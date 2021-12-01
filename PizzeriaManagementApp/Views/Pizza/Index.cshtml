@@ -26,6 +26,12 @@
                         Pizza price
                     </th>
                     <th>
+                        Pizza size
+                    </th>
+                    <th>
+                        Pizza thickness
+                    </th>
+                    <th>
                         Products
                     </th>
                     <th>Actions</th>
@@ -40,6 +46,12 @@
                         </td>
                         <td>
                             @pizza.Price
+                        </td>
+                        <td>
+                            @($"{pizza.Size.Name} - {pizza.Size.Value}")
+                        </td>
+                        <td>
+                            @pizza.Thickness.Name
                         </td>
                         <td>
                             @if (pizza.PizzaProducts.Count() > 0)

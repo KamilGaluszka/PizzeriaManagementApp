@@ -1,0 +1,54 @@
+﻿@model IEnumerable<PizzeriaManagementApp.Models.Thickness>
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Thickness list</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-controller="Thickness" asp-action="Create" class="btn btn-success">
+                <i class="fas fa-plus"></i> &nbsp; Create new thickness
+            </a>
+        </div>
+    </div>
+
+    <br /><br />
+
+    @if(Model.Count() > 0)
+    {
+        <table class="table table-bordered table-striped w-100">
+            <thead>
+                <tr>
+                    <th>
+                        Thickness name
+                    </th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(Thickness thickness in Model)
+                {
+                    <tr>
+                        <td>
+                            @thickness.Name
+                        </td>
+                        <td class="text-center">
+                            <div class="w-75 btn-group" role="group">
+                                <a asp-controller="Thickness" asp-action="Edit" asp-route-Id="@thickness.Id" class="btn btn-warning mx-2">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a asp-controller="Thickness" asp-action="Delete" asp-route-Id="@thickness.Id" class="btn btn-danger mx-2">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No thickness exists.</p>
+    }
+</div>

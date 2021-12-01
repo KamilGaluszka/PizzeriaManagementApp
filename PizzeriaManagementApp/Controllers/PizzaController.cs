@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PizzeriaManagementApp.Data;
 using PizzeriaManagementApp.Models;
+using PizzeriaManagementApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,13 +27,36 @@ namespace PizzeriaManagementApp.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Pizza> pizzas = _dbContext.Pizzas.Include(x => x.PizzaProducts).ThenInclude(x => x.Product);
+            IEnumerable<Pizza> pizzas = _dbContext.Pizzas
+                .Include(x => x.PizzaProducts)
+                .ThenInclude(x => x.Product)
+                .Include(x => x.Thickness)
+                .Include(x => x.Size);
             return View(pizzas);
         }
 
         public IActionResult Create()
         {
-            return View();
+            IEnumerable<SelectListItem> sizesDropDown = _dbContext.Sizes.Select(x => new SelectListItem
+            {
+                Text = $"{x.Name} - {x.Value}",
+                Value = x.Id.ToString()
+            });
+
+            IEnumerable<SelectListItem> thicknessesDropDown = _dbContext.Thicknesses.Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+            });
+
+            PizzaCreateVM pizzaCreateVM = new()
+            {
+                Pizza = new Pizza(),
+                Sizes = sizesDropDown,
+                Thicknesses = thicknessesDropDown
+            };
+
+            return View(pizzaCreateVM);
         }
 
         [HttpPost]
@@ -77,14 +102,33 @@ namespace PizzeriaManagementApp.Controllers
                 return NotFound();
             }
 
-            return View(pizza);
+            IEnumerable<SelectListItem> sizesDropDown = _dbContext.Sizes.Select(x => new SelectListItem
+            {
+                Text = $"{x.Name} - {x.Value}",
+                Value = x.Id.ToString()
+            });
+
+            IEnumerable<SelectListItem> thicknessesDropDown = _dbContext.Thicknesses.Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+            });
+
+            PizzaCreateVM pizzaCreateVM = new()
+            {
+                Pizza = pizza,
+                Sizes = sizesDropDown,
+                Thicknesses = thicknessesDropDown
+            };
+
+            return View(pizzaCreateVM);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Pizza pizza)
         {
-            ModelState["Image"].ValidationState = ModelValidationState.Valid;
+            ModelState["Pizza.Image"].ValidationState = ModelValidationState.Valid;
             if (ModelState.IsValid)
             {
                 Pizza oldPizza = _dbContext.Pizzas.AsNoTracking().FirstOrDefault(x => x.Id == pizza.Id);

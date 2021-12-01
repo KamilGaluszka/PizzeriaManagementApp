@@ -28,7 +28,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @if (User.IsInRole(WC.AdminRole) || User.IsInRole(WC.ManagerRole))
+                        @if (User.IsInRole(WC.AdminRole) || User.IsInRole(WC.ManagerRole) && User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Category</a>
@@ -47,6 +47,12 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Pizzeria" asp-action="Index">Pizzeria</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Size" asp-action="Index">Size</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Thickness" asp-action="Index">Thickness</a>
                             </li>
                         }
                         @if (User.Identity.IsAuthenticated)

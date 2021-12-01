@@ -50,9 +50,9 @@
                                 List<string> pizzaNames = new();
                                 foreach (CartOrders cardOrder in order.CartOrders)
                                 {
-                                    pizzaNames.Add($"{cardOrder.Amount}x {cardOrder.Pizza.Name}");
+                                    pizzaNames.Add($"{cardOrder.Amount}x {cardOrder.Pizza.Name} {cardOrder.Pizza.Size.Name} - {cardOrder.Pizza.Thickness.Name}");
                                 };
-                                <p>@string.Join(", ", pizzaNames)</p>
+                                <p style="white-space:pre">@string.Join(",\n", pizzaNames)</p>
                             }
                         </td>
                         <td>

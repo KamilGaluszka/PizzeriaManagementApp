@@ -22,6 +22,12 @@
                         Pizza name
                     </th>
                     <th>
+                        Pizza size
+                    </th>
+                    <th>
+                        Pizza thickness
+                    </th>
+                    <th>
                         Amount
                     </th>
                     <th>Remove from card</th>
@@ -31,13 +37,19 @@
                 @foreach(PizzaCartItemVM pizzaCartVM in Model)
                 {
                     <tr>
-                        <td class="w-25">
+                        <td>
                             @pizzaCartVM.Pizzeria.Name
                         </td>
-                        <td class="w-25">
+                        <td>
                             @pizzaCartVM.Pizza.Name
                         </td>
-                        <td class="w-25">
+                        <td>
+                            @($"{pizzaCartVM.Pizza.Size.Name} - {pizzaCartVM.Pizza.Size.Value}")
+                        </td>
+                        <td>
+                            @pizzaCartVM.Pizza.Thickness.Name
+                        </td>
+                        <td>
                             @pizzaCartVM.Amount
                         </td>
                         <td class="text-center">

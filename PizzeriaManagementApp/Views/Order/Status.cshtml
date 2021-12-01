@@ -50,6 +50,12 @@
                     Pizza name
                 </th>
                 <th>
+                    Pizza size
+                </th>
+                <th>
+                    Pizza thickness
+                </th>
+                <th>
                     Amount
                 </th>
             </tr>
@@ -60,6 +66,12 @@
                 <tr>
                     <td>
                         @cartOrder.Pizza.Name
+                    </td>
+                    <td>
+                        @($"{cartOrder.Pizza.Size.Name} - {cartOrder.Pizza.Size.Value}")
+                    </td>
+                    <td>
+                         @cartOrder.Pizza.Thickness.Name
                     </td>
                     <td>
                         @cartOrder.Amount

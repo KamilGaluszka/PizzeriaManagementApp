@@ -28,52 +28,46 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @if (User.IsInRole(WC.AdminRole) || User.IsInRole(WC.ManagerRole) && User.Identity.IsAuthenticated)
+                        @if ((User.IsInRole(WC.AdminRole) || User.IsInRole(WC.ManagerRole)) && User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Category</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Product</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Pizza" asp-action="Index">Pizza</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="ManagerIndex">Manager</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="Index">Employee</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Pizzeria" asp-action="Index">Pizzeria</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Size" asp-action="Index">Size</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Thickness" asp-action="Index">Thickness</a>
-                            </li>
-                        }
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index">Orders</a>
-                            </li>
-                        }
-                        <li>
-                            <a asp-action="Index" asp-controller="Cart" class="nav-link">
-                                @{
-                                    int count = 0;
-                                    if (HttpContextAccesor.HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart) is not null)
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Manage
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="nav-link text-dark font-weight-bold" asp-area="" asp-controller="Category" asp-action="Index">Category</a>
+                                    <a class="nav-link text-dark font-weight-bold" asp-area="" asp-controller="Product" asp-action="Index">Product</a>
+                                    <a class="nav-link text-dark font-weight-bold" asp-area="" asp-controller="Size" asp-action="Index">Size</a>
+                                    <a class="nav-link text-dark font-weight-bold" asp-area="" asp-controller="Pizza" asp-action="Index">Pizza</a>
+                                    @if (User.IsInRole(WC.AdminRole) && User.Identity.IsAuthenticated)
                                     {
-                                        count = HttpContextAccesor.HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart).Count;
+                                        <a class="nav-link text-dark font-weight-bold" asp-area="" asp-controller="Employee" asp-action="ManagerIndex">Manager</a>
                                     }
-                                }
-                                <i class="fas fa-shopping-cart"></i> &nbsp; (@count)
-                            </a>
-                        </li>
-                    </ul>
+                                    <a class="nav-link text-dark font-weight-bold" asp-area="" asp-controller="Employee" asp-action="Index">Employee</a>
+                                    <a class="nav-link text-dark font-weight-bold" asp-area="" asp-controller="Thickness" asp-action="Index">Thickness</a>
+                                    <a class="nav-link text-dark font-weight-bold" asp-area="" asp-controller="Pizzeria" asp-action="Index">Pizzeria</a>
+                                </div>
+                            </li>
+                            }
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index">Orders</a>
+                                </li>
+                            }
+                            <li>
+                                <a asp-action="Index" asp-controller="Cart" class="nav-link">
+                                    @{
+                                        int count = 0;
+                                        if (HttpContextAccesor.HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart) is not null)
+                                        {
+                                            count = HttpContextAccesor.HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart).Count;
+                                        }
+                                    }
+                                    <i class="fas fa-shopping-cart"></i> &nbsp; (@count)
+                                </a>
+                            </li>
+                        </ul>
                 </div>
             </div>
         </nav>

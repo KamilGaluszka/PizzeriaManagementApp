@@ -1,0 +1,60 @@
+﻿@model IEnumerable<PizzeriaManagementApp.Models.Size>
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Size list</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-controller="Size" asp-action="Create" class="btn btn-success">
+                <i class="fas fa-plus"></i> &nbsp; Create new size
+            </a>
+        </div>
+    </div>
+
+    <br /><br />
+
+    @if(Model.Count() > 0)
+    {
+        <table class="table table-bordered table-striped w-100">
+            <thead>
+                <tr>
+                    <th>
+                        Size name
+                    </th>
+                    <th>
+                        Size value
+                    </th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(Size size in Model)
+                {
+                    <tr>
+                        <td>
+                            @size.Name
+                        </td>
+                        <td>
+                            @size.Value
+                        </td>
+                        <td class="text-center">
+                            <div class="w-75 btn-group" role="group">
+                                <a asp-controller="Size" asp-action="Edit" asp-route-Id="@size.Id" class="btn btn-warning mx-2">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a asp-controller="Size" asp-action="Delete" asp-route-Id="@size.Id" class="btn btn-danger mx-2">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No size exists.</p>
+    }
+</div>

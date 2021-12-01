@@ -56,6 +56,10 @@ namespace PizzeriaManagementApp.Controllers
                 .Include(x => x.Pizza)
                 .ThenInclude(x => x.PizzaProducts)
                 .ThenInclude(x => x.Product)
+                .Include(x => x.Pizza)
+                .ThenInclude(x => x.Size)
+                .Include(x => x.Pizza)
+                .ThenInclude(x => x.Thickness)
                 .Where(x => x.PizzeriaId == id)
                 .Select(x => x.Pizza)
                 .OrderBy(x => x.Price);

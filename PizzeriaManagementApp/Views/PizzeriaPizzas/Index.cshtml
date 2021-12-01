@@ -26,6 +26,12 @@
                         Pizza name
                     </th>
                     <th>
+                        Pizza size
+                    </th>
+                    <th>
+                        Pizza thickness
+                    </th>
+                    <th>
                         Remove pizza from pizzeria
                     </th>
                 </tr>
@@ -36,6 +42,12 @@
                 <tr>
                     <td>
                         @pizzeriaPizza.Pizza.Name
+                    </td>
+                    <td>
+                        @($"{pizzeriaPizza.Pizza.Size.Name} - {pizzeriaPizza.Pizza.Size.Value}")
+                    </td>
+                    <td>
+                        @pizzeriaPizza.Pizza.Thickness.Name
                     </td>
                     <td>
                         <a asp-route-Id="@pizzeriaPizza.Id" asp-controller="PizzeriaPizzas" asp-action="Delete" class="btn btn-danger m-0 text-white">

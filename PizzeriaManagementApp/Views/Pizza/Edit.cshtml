@@ -1,7 +1,7 @@
-﻿@model PizzeriaManagementApp.Models.Pizza
+﻿@model PizzeriaManagementApp.ViewModels.PizzaCreateVM
 
 <form method="post" enctype="multipart/form-data">
-    <input asp-for="Id" hidden />
+    <input asp-for="Pizza.Id" hidden />
     <div class="border p-3">
         <div class="form-group row">
             <h2 class="text-info p-3">Edit pizza</h2>
@@ -10,29 +10,49 @@
             <div class="col-8">
                 <div class="form-group row">
                     <div class="col-4">
-                        <label asp-for="Name"></label>
+                        <label asp-for="Pizza.Name"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="Name" class="form-control" />
-                        <span asp-validation-for="Name" class="text-danger"></span>
+                        <input asp-for="Pizza.Name" class="form-control" />
+                        <span asp-validation-for="Pizza.Name" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-4">
-                        <label asp-for="Price"></label>
+                        <label asp-for="Pizza.Price"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="Price" class="form-control" />
-                        <span asp-validation-for="Price" class="text-danger"></span>
+                        <input asp-for="Pizza.Price" class="form-control" />
+                        <span asp-validation-for="Pizza.Price" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-4">
-                        <label asp-for="Image"></label>
+                        <label asp-for="Pizza.SizeId"></label>
+                    </div>
+                    <div class="col-8">
+                        <select asp-for="Pizza.SizeId" asp-items="@Model.Sizes" class="form-control">
+                        </select>
+                        <span asp-validation-for="Pizza.SizeId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Pizza.ThicknessId"></label>
+                    </div>
+                    <div class="col-8">
+                        <select asp-for="Pizza.ThicknessId" asp-items="@Model.Thicknesses" class="form-control">
+                        </select>
+                        <span asp-validation-for="Pizza.ThicknessId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Pizza.Image"></label>
                     </div>
                     <div class="col-8">
                         <input type="file" name="files" id="uploadBox" accept="image/png, image/gif, image/jpeg" class="form-control" />
-                        <span asp-validation-for="Image" class="text-danger"></span>
+                        <span asp-validation-for="Pizza.Image" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -49,7 +69,7 @@
                 </div>
             </div>
             <div class="col-4">
-                <img src="@WC.PizzaImagePath@Model.Image" class="w-100" style="border-radius:5px; border: 1px solid #bbb" />
+                <img src="@WC.PizzaImagePath@Model.Pizza.Image" class="w-100" style="border-radius:5px; border: 1px solid #bbb" />
             </div>
         </div>
     </div>

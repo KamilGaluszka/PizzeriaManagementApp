@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PizzeriaManagementApp.Data;
 using PizzeriaManagementApp.Models;
 using PizzeriaManagementApp.Utility;
@@ -37,7 +38,11 @@ namespace PizzeriaManagementApp.Controllers
             List<Pizza> pizzas = new List<Pizza>();
             foreach (var item in pizzasFromCart)
             {
-                pizzas.Add(_dbContext.Pizzas.Where(x => x.Id == item).FirstOrDefault());
+                pizzas.Add(_dbContext.Pizzas
+                    .Where(x => x.Id == item)
+                    .Include(x => x.Size)
+                    .Include(x => x.Thickness)
+                    .FirstOrDefault());
             }
              
             IEnumerable<IGrouping<Pizza, Pizza>> groupsByPizza = pizzas.GroupBy(x => x);

@@ -24,5 +24,7 @@ namespace PizzeriaManagementApp.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<CartOrders> CartOrders { get; set; }
         public DbSet<OrderAddress> OrderAddresses { get; set; }
+        public DbSet<Size> Sizes { get; set; }
+        public DbSet<Thickness> Thicknesses { get; set; }
     }
 }

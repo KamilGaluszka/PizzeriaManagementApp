@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzeriaManagementApp", "PizzeriaManagementApp\PizzeriaManagementApp.csproj", "{4AAA55BF-93B4-435F-8706-82CAAD93A7F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzeriaManagementApp", "PizzeriaManagementApp\PizzeriaManagementApp.csproj", "{4AAA55BF-93B4-435F-8706-82CAAD93A7F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzeriaManagementAppMobile.Android", "PizzeriaManagementAppMobile\PizzeriaManagementAppMobile.Android\PizzeriaManagementAppMobile.Android.csproj", "{42D51C21-385F-474F-BA7B-96922F83F49A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzeriaManagementAppMobile", "PizzeriaManagementAppMobile\PizzeriaManagementAppMobile\PizzeriaManagementAppMobile.csproj", "{049983B4-2D48-43C6-A5EC-5A8DB41174B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,16 @@ Global
 		{4AAA55BF-93B4-435F-8706-82CAAD93A7F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AAA55BF-93B4-435F-8706-82CAAD93A7F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AAA55BF-93B4-435F-8706-82CAAD93A7F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42D51C21-385F-474F-BA7B-96922F83F49A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42D51C21-385F-474F-BA7B-96922F83F49A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42D51C21-385F-474F-BA7B-96922F83F49A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{42D51C21-385F-474F-BA7B-96922F83F49A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42D51C21-385F-474F-BA7B-96922F83F49A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42D51C21-385F-474F-BA7B-96922F83F49A}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{049983B4-2D48-43C6-A5EC-5A8DB41174B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{049983B4-2D48-43C6-A5EC-5A8DB41174B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{049983B4-2D48-43C6-A5EC-5A8DB41174B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{049983B4-2D48-43C6-A5EC-5A8DB41174B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

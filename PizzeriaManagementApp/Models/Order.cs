@@ -24,6 +24,6 @@ namespace PizzeriaManagementApp.Models
         [ForeignKey("PizzeriaId")]
         public virtual Pizzeria Pizzeria { get; set; }
 
-        public virtual IEnumerable<CartOrders> CartOrders { get; set; }
+        public virtual List<CartOrders> CartOrders { get; set; }
     }
 }

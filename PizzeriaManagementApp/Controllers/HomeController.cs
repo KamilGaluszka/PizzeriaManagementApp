@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.Json;
 
 namespace PizzeriaManagementApp.Controllers
 {
@@ -23,6 +24,43 @@ namespace PizzeriaManagementApp.Controllers
         {
             _logger = logger;
             _dbContext = dbContext;
+        }
+
+        public List<Pizzeria> GetPizzerias()
+        {
+            List<Pizzeria> pizzerias = _dbContext.Pizzerias
+                    .Include(x => x.Address)
+                    .ToList();
+            return pizzerias;
+        }
+
+        public List<PizzaWithProductsVM> GetPizzas(Guid id)
+        {
+            Pizzeria pizzeria = _dbContext.Pizzerias.Where(x => x.Id == id).FirstOrDefault();
+            List<Pizza> pizzas = _dbContext.PizzeriaPizzas
+                .Include(x => x.Pizza)
+                .ThenInclude(x => x.Size)
+                .Include(x => x.Pizza)
+                .ThenInclude(x => x.Thickness)
+                .Where(x => x.PizzeriaId == id)
+                .Select(x => x.Pizza)
+                .OrderBy(x => x.Price)
+                .ToList();
+            List<PizzaWithProductsVM> pizzaWithProductsVMs = new();
+            foreach (var pizza in pizzas)
+            {
+                pizzaWithProductsVMs.Add(new PizzaWithProductsVM()
+                {
+                    Pizza = pizza,
+                    Products = _dbContext.PizzaProducts.Where(x => x.IdPizza == pizza.Id).Select(x => x.Product).ToList()
+                });
+            }
+            return pizzaWithProductsVMs;
+        }
+
+        public IActionResult IndexAPI()
+        {
+            return Ok(GetPizzerias());
         }
 
         public IActionResult Index()
@@ -47,6 +85,12 @@ namespace PizzeriaManagementApp.Controllers
                 Towns = towns
             };
             return View(homeVM);
+        }
+
+        public IActionResult MenuAPI([FromQuery] Guid id)
+        {
+            var json = JsonSerializer.Serialize(GetPizzas(id));
+            return Ok(json);
         }
 
         public IActionResult Menu(Guid id, bool? isAdded)

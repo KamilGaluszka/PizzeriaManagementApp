@@ -23,7 +23,7 @@ namespace PizzeriaManagementApp.Models
         [ForeignKey("ThicknessId")]
         public virtual Thickness Thickness { get; set; }
 
-        public virtual IEnumerable<PizzaProducts> PizzaProducts { get; set; }
-        public virtual IEnumerable<PizzeriaPizza> PizzeriaPizzas { get; set; }
+        public virtual List<PizzaProducts> PizzaProducts { get; set; }
+        public virtual List<PizzeriaPizza> PizzeriaPizzas { get; set; }
     }
 }

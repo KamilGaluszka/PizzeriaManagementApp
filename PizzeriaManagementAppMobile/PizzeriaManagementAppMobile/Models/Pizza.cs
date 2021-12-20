@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PizzeriaManagementAppMobile.ViewModels
+namespace PizzeriaManagementAppMobile.Models
 {
     public class Pizza
     {
@@ -16,7 +16,7 @@ namespace PizzeriaManagementAppMobile.ViewModels
         public Guid ThicknessId { get; set; }
         public virtual Thickness Thickness { get; set; }
 
-        public virtual IEnumerable<PizzaProducts> PizzaProducts { get; set; }
-        public virtual IEnumerable<PizzeriaPizza> PizzeriaPizzas { get; set; }
+        public virtual List<PizzaProducts> PizzaProducts { get; set; }
+        public virtual List<PizzeriaPizza> PizzeriaPizzas { get; set; }
     }
 }

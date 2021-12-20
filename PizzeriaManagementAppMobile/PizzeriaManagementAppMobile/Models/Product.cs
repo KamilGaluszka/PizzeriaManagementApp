@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PizzeriaManagementAppMobile.ViewModels
+namespace PizzeriaManagementAppMobile.Models
 {
     public class Product
     {
@@ -9,6 +9,11 @@ namespace PizzeriaManagementAppMobile.ViewModels
         public string Name { get; set; }
         public Guid CategoryId { get; set; }
         public virtual Category Category { get; set; }
-        public virtual IEnumerable<PizzaProducts> PizzaProducts { get; set; }
+        public virtual List<PizzaProducts> PizzaProducts { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Name}";
+        }
     }
 }

@@ -24,7 +24,7 @@ namespace PizzeriaManagementApp.Models
         public Guid AddressId { get; set; }
         [ForeignKey("AddressId")]
         public virtual Address Address { get; set; }
-        public virtual IEnumerable<PizzeriaEmployee> PizzeriaEmployees { get; set; }
-        public virtual IEnumerable<PizzeriaPizza> PizzeriaPizzas { get; set; }
+        public virtual List<PizzeriaEmployee> PizzeriaEmployees { get; set; }
+        public virtual List<PizzeriaPizza> PizzeriaPizzas { get; set; }
     }
 }

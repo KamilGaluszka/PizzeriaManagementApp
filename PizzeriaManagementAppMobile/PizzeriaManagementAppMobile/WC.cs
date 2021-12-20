@@ -2,7 +2,11 @@
 {
     public static class WC
     {
-        public readonly static string BaseAddress = "https://127.0.0.1:44369/";
-        public readonly static string HomeIndexAddress = "home/index";
+        public readonly static string BaseAddress = "http://10.0.2.2:5000/";
+        public readonly static string HomeIndexAddress = "Home/IndexAPI";
+        public readonly static string HomeMenuAddress = "Home/MenuAPI";
+
+        public readonly static string ShoppingCart = "ShoppingCart";
+        public readonly static string ActualPizzeria = "ActualPizzeria";
     }
 }

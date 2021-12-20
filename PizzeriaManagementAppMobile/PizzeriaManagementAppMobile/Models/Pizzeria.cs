@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace PizzeriaManagementAppMobile.ViewModels
+namespace PizzeriaManagementAppMobile.Models
 {
     public class Pizzeria
     {
@@ -14,7 +13,12 @@ namespace PizzeriaManagementAppMobile.ViewModels
         public virtual Employee Manager { get; set; }
         public Guid AddressId { get; set; }
         public virtual Address Address { get; set; }
-        public virtual IEnumerable<PizzeriaEmployee> PizzeriaEmployees { get; set; }
-        public virtual IEnumerable<PizzeriaPizza> PizzeriaPizzas { get; set; }
+        public virtual List<PizzeriaEmployee> PizzeriaEmployees { get; set; }
+        public virtual List<PizzeriaPizza> PizzeriaPizzas { get; set; }
+
+        public string OpenHours 
+        {
+            get => $"Open hours: {OpenTime:HH: mm tt} - {CloseTime:HH: mm tt}";
+        }
     }
 }

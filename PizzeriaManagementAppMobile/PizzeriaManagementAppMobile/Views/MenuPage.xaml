@@ -2,14 +2,14 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:viewmodels="clr-namespace:PizzeriaManagementAppMobile.ViewModels"
-             x:Class="PizzeriaManagementAppMobile.Views.HomePage">
+             x:Class="PizzeriaManagementAppMobile.Views.MenuPage">
     <ContentPage.BindingContext>
         <viewmodels:HomePageViewModel/>
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
         <ListView BackgroundColor="Transparent" 
-                  ItemsSource="{Binding Pizzerias}"
+                  ItemsSource="{Binding Pizzas}"
                   HasUnevenRows="True"
                   SeparatorColor="AliceBlue"
                   SeparatorVisibility="None"
@@ -18,22 +18,24 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="Add to cart"
+                                      IsDestructive="True"
+                                      Clicked="MenuItem_Clicked"/>
+                            <MenuItem Text="Show cart"
+                                      IsDestructive="True"
+                                      Clicked="MenuItem_Clicked_1"/>
+                        </ViewCell.ContextActions>
                         <Grid Padding="5">
                             <Frame>
                                 <StackLayout>
                                     <Label TextColor="#0275d8" 
                                            FontSize="Medium" 
-                                           Text="{Binding Name}"/>
+                                           Text="{Binding Pizza.Name}"/>
                                     <Label FontSize="Small" 
-                                           Text="{Binding Address}"/>
+                                           Text="{Binding SizeAndThickness}"/>
                                     <Label FontSize="Small" 
-                                           Text="{Binding OpenHours}"/>
-                                    <Label BackgroundColor="#d9534f" 
-                                           TextColor="White"
-                                           WidthRequest="100"
-                                           Text="Show menu"
-                                           Padding="10"
-                                           HorizontalTextAlignment="Center"/>
+                                           Text="{Binding ProductsNames}"/>
                                 </StackLayout>
                             </Frame>
                         </Grid>
@@ -45,7 +47,7 @@
                        HorizontalOptions="Center" 
                        TextColor="#0275d8"
                        Padding="10" 
-                       Text="List of pizzerias"/>
+                       Text="{Binding Pizzeria.Name}"/>
             </ListView.Header>
         </ListView>
     </ContentPage.Content>

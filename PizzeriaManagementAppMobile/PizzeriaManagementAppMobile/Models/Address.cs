@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PizzeriaManagementAppMobile.ViewModels
+namespace PizzeriaManagementAppMobile.Models
 {
     public class Address
     {
@@ -11,5 +11,10 @@ namespace PizzeriaManagementAppMobile.ViewModels
         public string Street { get; set; }
         public string HouseNumber { get; set; }
         public string ApartmentNumber { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Street} {HouseNumber} {ApartmentNumber} - {PostalCode} {Town}";
+        }
     }
 }

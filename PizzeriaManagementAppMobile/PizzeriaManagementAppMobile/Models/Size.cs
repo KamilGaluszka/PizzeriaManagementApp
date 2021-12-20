@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PizzeriaManagementAppMobile.ViewModels
+namespace PizzeriaManagementAppMobile.Models
 {
     public class Size
     {

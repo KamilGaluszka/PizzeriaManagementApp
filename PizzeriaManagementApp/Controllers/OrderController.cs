@@ -13,7 +13,6 @@ using System.Linq;
 
 namespace PizzeriaManagementApp.Controllers
 {
-    [Authorize]
     public class OrderController : Controller
     {
         private readonly PizzeriaDbContext _dbContext;
@@ -25,7 +24,6 @@ namespace PizzeriaManagementApp.Controllers
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
         }
 
-        [Authorize]
         public IActionResult Index()
         {
             List<Order> orders = new List<Order>();

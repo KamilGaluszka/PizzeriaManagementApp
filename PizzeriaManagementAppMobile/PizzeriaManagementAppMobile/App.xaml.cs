@@ -1,5 +1,7 @@
 ﻿using PizzeriaManagementAppMobile.Services.Abstract;
 using PizzeriaManagementAppMobile.Services.Providers;
+using System;
+using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace PizzeriaManagementAppMobile
@@ -10,6 +12,8 @@ namespace PizzeriaManagementAppMobile
         {
             InitializeComponent();
             InitializeDI();
+            Current.Properties.Add(WC.ShoppingCart, new Dictionary<Guid, int>());
+            Current.Properties.Add(WC.ActualPizzeria, "");
             MainPage = new NavigationPage(new MainPage());
         }
 

@@ -16,6 +16,6 @@ namespace PizzeriaManagementApp.Models
         public Guid CategoryId { get; set; }
         [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
-        public virtual IEnumerable<PizzaProducts> PizzaProducts { get; set; }
+        public virtual List<PizzaProducts> PizzaProducts { get; set; }
     }
 }

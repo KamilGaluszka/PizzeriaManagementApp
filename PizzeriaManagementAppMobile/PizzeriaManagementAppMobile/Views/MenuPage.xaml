@@ -22,9 +22,6 @@
                             <MenuItem Text="Add to cart"
                                       IsDestructive="True"
                                       Clicked="MenuItem_Clicked"/>
-                            <MenuItem Text="Show cart"
-                                      IsDestructive="True"
-                                      Clicked="MenuItem_Clicked_1"/>
                         </ViewCell.ContextActions>
                         <Grid Padding="5">
                             <Frame>

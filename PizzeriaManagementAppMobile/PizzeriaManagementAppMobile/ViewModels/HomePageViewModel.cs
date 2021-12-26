@@ -36,7 +36,7 @@ namespace PizzeriaManagementAppMobile.ViewModels
                     Pizzerias.Add(pizzeria);
                 };
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 
             }

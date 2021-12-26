@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewmodels="clr-namespace:PizzeriaManagementAppMobile.ViewModels"
+             x:Class="PizzeriaManagementAppMobile.Views.CartPage">
+    <ContentPage.BindingContext>
+        <viewmodels:CartPageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView BackgroundColor="Transparent" 
+                  ItemsSource="{Binding Pizzas}"
+                  HasUnevenRows="True"
+                  SeparatorColor="AliceBlue"
+                  SeparatorVisibility="None"
+                  ItemTapped="ListView_ItemTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Remove from cart"
+                                      IsDestructive="True"
+                                      Clicked="MenuItem_Clicked"/>
+                            </ViewCell.ContextActions>
+                            <Grid Padding="5">
+                                <Frame>
+                                    <StackLayout>
+                                        <Label TextColor="#0275d8" 
+                                           FontSize="Medium" 
+                                           Text="{Binding PizzaWithAmount}"/>
+                                        <Label FontSize="Small" 
+                                           Text="{Binding SizeAndThickness}"/>
+                                    </StackLayout>
+                                </Frame>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Header>
+                    <StackLayout Margin="4">
+                        <Button BackgroundColor="#0275d8" 
+                                TextColor="White"
+                                Text="Back to home"
+                                Padding="10"
+                                FontSize="Small"
+                                CornerRadius="4"
+                                Clicked="BackToHomePage"/>
+                        <Button BackgroundColor="#0275d8" 
+                                TextColor="White"
+                                Text="Make an order"
+                                Padding="10"
+                                FontSize="Small"
+                                CornerRadius="4"
+                                Clicked="MakeAnOrder"/>
+                        <Label FontSize="Large" 
+                               HorizontalOptions="Center" 
+                               TextColor="#0275d8"
+                               Padding="10" 
+                               Text="Pizzas in cart"/>
+                    </StackLayout>
+                </ListView.Header>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

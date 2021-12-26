@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewmodels="clr-namespace:PizzeriaManagementAppMobile.ViewModels"
+             x:Class="PizzeriaManagementAppMobile.Views.LoginPage">
+    <ContentPage.BindingContext>
+        <viewmodels:LoginPageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" Padding="30" Spacing="40">
+            <StackLayout Orientation="Vertical" Spacing="10">
+                <Entry x:Name="Email" 
+                       Text="{Binding Email}" 
+                       Placeholder="Email"   
+                       HeightRequest="40"   
+                       Keyboard="Email"/>
+                <Entry x:Name="Password" 
+                       Text="{Binding Password}" 
+                       Placeholder="Password"   
+                       HeightRequest="40"   
+                       IsPassword="True"/>
+            </StackLayout>
+            <Button Text="Login" 
+                    TextColor="White"  
+                    FontAttributes="Bold" 
+                    FontSize="Large" 
+                    HorizontalOptions="FillAndExpand"  
+                    BackgroundColor="#0275d8" 
+                    Command="{Binding LoginCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

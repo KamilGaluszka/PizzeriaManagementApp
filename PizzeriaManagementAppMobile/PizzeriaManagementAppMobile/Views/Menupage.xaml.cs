@@ -32,12 +32,12 @@ namespace PizzeriaManagementAppMobile.Views
                 return;
             }
 
-            var actualPizzeria = (string)Application.Current.Properties[WC.ActualPizzeria];
+            var actualPizzeria = (string)Application.Current.Properties[WC.CurrentPizzeria];
             if (actualPizzeria != _pizzeria.Id.ToString())
             {
                 Application.Current.Properties[WC.ShoppingCart] = new Dictionary<Guid, int>();
             }
-            Application.Current.Properties[WC.ActualPizzeria] = _pizzeria.Id.ToString();
+            Application.Current.Properties[WC.CurrentPizzeria] = _pizzeria.Id.ToString();
             var shoppingCart = (Dictionary<Guid, int>)Application.Current.Properties[WC.ShoppingCart];
             if (!shoppingCart.ContainsKey(menuVM.Pizza.Id))
             {
@@ -50,14 +50,6 @@ namespace PizzeriaManagementAppMobile.Views
             await DisplayAlert("Shopping cart", $"{menuVM.Pizza.Name} added to cart", "OK");
         }
 
-        private async void MenuItem_Clicked_1(object sender, EventArgs e)
-        {
-            var shoppingCart = (Dictionary<Guid, int>)Application.Current.Properties[WC.ShoppingCart];
-            var lines = shoppingCart.Select(kvp => kvp.Key + ": " + kvp.Value.ToString());
-            var text = string.Join(Environment.NewLine, lines);
-            await DisplayAlert("Shopping cart", $"{text}", "OK");
-        }
-
         private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (!(((ListView)sender).SelectedItem is MenuVM menuVM))
@@ -65,12 +57,12 @@ namespace PizzeriaManagementAppMobile.Views
                 return;
             }
 
-            var actualPizzeria = (string)Application.Current.Properties[WC.ActualPizzeria];
+            var actualPizzeria = (string)Application.Current.Properties[WC.CurrentPizzeria];
             if(actualPizzeria != _pizzeria.Id.ToString())
             {
                 Application.Current.Properties[WC.ShoppingCart] = new Dictionary<Guid, int>();
             }
-            Application.Current.Properties[WC.ActualPizzeria] = _pizzeria.Id.ToString();
+            Application.Current.Properties[WC.CurrentPizzeria] = _pizzeria.Id.ToString();
             var shoppingCart = (Dictionary<Guid, int>)Application.Current.Properties[WC.ShoppingCart];
             if (!shoppingCart.ContainsKey(menuVM.Pizza.Id))
             {

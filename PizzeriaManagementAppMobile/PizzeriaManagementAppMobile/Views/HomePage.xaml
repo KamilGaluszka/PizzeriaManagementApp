@@ -8,45 +8,57 @@
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <ListView BackgroundColor="Transparent" 
-                  ItemsSource="{Binding Pizzerias}"
-                  HasUnevenRows="True"
-                  SeparatorColor="AliceBlue"
-                  SeparatorVisibility="None"
-                  ItemTapped="ListView_ItemTapped"
-                  ItemSelected="ListView_ItemSelected">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid Padding="5">
-                            <Frame>
-                                <StackLayout>
-                                    <Label TextColor="#0275d8" 
-                                           FontSize="Medium" 
-                                           Text="{Binding Name}"/>
-                                    <Label FontSize="Small" 
-                                           Text="{Binding Address}"/>
-                                    <Label FontSize="Small" 
-                                           Text="{Binding OpenHours}"/>
-                                    <Label BackgroundColor="#d9534f" 
-                                           TextColor="White"
-                                           WidthRequest="100"
-                                           Text="Show menu"
-                                           Padding="10"
-                                           HorizontalTextAlignment="Center"/>
-                                </StackLayout>
-                            </Frame>
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            <ListView.Header>
-                <Label FontSize="Large" 
-                       HorizontalOptions="Center" 
-                       TextColor="#0275d8"
-                       Padding="10" 
-                       Text="List of pizzerias"/>
-            </ListView.Header>
-        </ListView>
+        <StackLayout>
+            <StackLayout BackgroundColor="Transparent"
+                         HorizontalOptions="CenterAndExpand"
+                         Margin="2">
+                <Button BackgroundColor="#0275d8" 
+                        TextColor="White"
+                        WidthRequest="100"
+                        Text="Show cart"
+                        Padding="2"
+                        Clicked="Button_Clicked"/>
+            </StackLayout>
+            <ListView BackgroundColor="Transparent" 
+                      ItemsSource="{Binding Pizzerias}"
+                      HasUnevenRows="True"
+                      SeparatorColor="AliceBlue"
+                      SeparatorVisibility="None"
+                      ItemTapped="ListView_ItemTapped"
+                      ItemSelected="ListView_ItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="5">
+                                <Frame>
+                                    <StackLayout>
+                                        <Label TextColor="#0275d8" 
+                                               FontSize="Medium" 
+                                               Text="{Binding Name}"/>
+                                        <Label FontSize="Small" 
+                                               Text="{Binding Address}"/>
+                                        <Label FontSize="Small" 
+                                               Text="{Binding OpenHours}"/>
+                                        <Label BackgroundColor="#d9534f" 
+                                               TextColor="White"
+                                               WidthRequest="100"
+                                               Text="Show menu"
+                                               Padding="10"
+                                               HorizontalTextAlignment="Center"/>
+                                    </StackLayout>
+                                </Frame>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Header>
+                    <Label FontSize="Large" 
+                           HorizontalOptions="Center" 
+                           TextColor="#0275d8"
+                           Padding="10" 
+                           Text="List of pizzerias"/>
+                </ListView.Header>
+            </ListView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

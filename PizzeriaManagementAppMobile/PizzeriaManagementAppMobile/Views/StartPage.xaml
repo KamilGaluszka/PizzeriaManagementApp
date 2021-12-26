@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="PizzeriaManagementAppMobile.Views.StartPage">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="CenterAndExpand" Spacing="48" Margin="8">
+            <Button BackgroundColor="#0275d8" 
+                    TextColor="White"
+                    Text="Login"
+                    Padding="10"
+                    FontSize="Medium"
+                    CornerRadius="12"
+                    Clicked="Login"/>
+            <Label Text="or"
+                   TextColor="#0275d8"
+                   FontSize="Medium"
+                   HorizontalOptions="Center"/>
+            <Button BackgroundColor="#17a2b8" 
+                    TextColor="White"
+                    Text="Continue as guest"
+                    FontSize="Medium"
+                    Padding="10"
+                    CornerRadius="12"
+                    Clicked="ContinueAsGuest"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

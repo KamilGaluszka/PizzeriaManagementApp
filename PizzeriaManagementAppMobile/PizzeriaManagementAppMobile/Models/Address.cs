@@ -14,7 +14,11 @@ namespace PizzeriaManagementAppMobile.Models
 
         public override string ToString()
         {
-            return $"{Street} {HouseNumber} {ApartmentNumber} - {PostalCode} {Town}";
+            if(string.IsNullOrWhiteSpace(ApartmentNumber))
+            {
+                return $"{Street} {HouseNumber} - {PostalCode} {Town}";
+            }
+            return $"{Street} {HouseNumber}/{ApartmentNumber} - {PostalCode} {Town}";
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -12,6 +13,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace PizzeriaManagementApp.Controllers
 {
@@ -19,11 +21,13 @@ namespace PizzeriaManagementApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly PizzeriaDbContext _dbContext;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public HomeController(ILogger<HomeController> logger, PizzeriaDbContext dbContext)
+        public HomeController(ILogger<HomeController> logger, PizzeriaDbContext dbContext, UserManager<IdentityUser> userManager)
         {
             _logger = logger;
             _dbContext = dbContext;
+            _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
         }
 
         public List<Pizzeria> GetPizzerias()
@@ -32,6 +36,28 @@ namespace PizzeriaManagementApp.Controllers
                     .Include(x => x.Address)
                     .ToList();
             return pizzerias;
+        }
+
+        public async Task<IActionResult> HomeLogin([FromBody] LoginUser loginUser)
+        {
+            try
+            {
+                var user = await _userManager.FindByNameAsync(loginUser.Email);
+                if (user is null)
+                {
+                    return Unauthorized();
+                }
+                var validCredentials = await _userManager.CheckPasswordAsync(user, loginUser.Password);
+                if (validCredentials)
+                {
+                    return Ok();
+                }
+                return Unauthorized();
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         public List<PizzaWithProductsVM> GetPizzas(Guid id)
@@ -90,6 +116,22 @@ namespace PizzeriaManagementApp.Controllers
         public IActionResult MenuAPI([FromQuery] Guid id)
         {
             var json = JsonSerializer.Serialize(GetPizzas(id));
+            return Ok(json);
+        }
+
+        public IActionResult PizzaDetails([FromQuery] Guid? id)
+        {
+            if (id == Guid.Empty || id is null)
+            {
+                return BadRequest();
+            }
+
+            Pizza pizza = _dbContext.Pizzas.Where(x => x.Id == id).Include(x => x.Size).Include(x => x.Thickness).FirstOrDefault();
+            if (pizza is null)
+            {
+                return BadRequest();
+            }
+            var json = JsonSerializer.Serialize(pizza);
             return Ok(json);
         }
 

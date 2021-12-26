@@ -8,7 +8,7 @@ namespace PizzeriaManagementAppMobile
         public MainPage()
         {
             InitializeComponent();
-            Navigation.PushAsync(new HomePage());
+            Navigation.PushAsync(new StartPage());
         }
     }
 }

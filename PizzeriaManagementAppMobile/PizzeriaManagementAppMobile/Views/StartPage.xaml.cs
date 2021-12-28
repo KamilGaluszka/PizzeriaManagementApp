@@ -15,6 +15,8 @@ namespace PizzeriaManagementAppMobile.Views
 
         private void ContinueAsGuest(object sender, EventArgs e)
         {
+            Application.Current.Properties[WC.CurrentUser] = null;
+            Application.Current.Properties[WC.CurrentUserAddress] = null;
             Navigation.PushAsync(new HomePage());
         }
 

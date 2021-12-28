@@ -58,11 +58,10 @@ namespace PizzeriaManagementApp.Controllers
                     .Include(x => x.CartOrders)
                     .ThenInclude(x => x.Pizza)
                     .ThenInclude(x => x.Thickness)
-                    .Include(x => x.Customer)
                     .Include(x => x.Address)
                     .Where(x => pizzeriasIds.Contains(x.PizzeriaId))
                     .Where(x => x.Status != WC.Done)
-                    .OrderBy(x => x.CreatedOn)
+                    .OrderByDescending(x => x.CreatedOn)
                     .ThenBy(x => x.Address)
                     .ToList();
             }
@@ -81,10 +80,9 @@ namespace PizzeriaManagementApp.Controllers
                     .Include(x => x.CartOrders)
                     .ThenInclude(x => x.Pizza)
                     .ThenInclude(x => x.Thickness)
-                    .Include(x => x.Customer)
                     .Include(x => x.Address)
                     .Where(x => pizzeriasIds.Contains(x.PizzeriaId))
-                    .OrderBy(x => x.CreatedOn)
+                    .OrderByDescending(x => x.CreatedOn)
                     .ThenBy(x => x.Address)
                     .ToList();
             }
@@ -98,9 +96,8 @@ namespace PizzeriaManagementApp.Controllers
                     .Include(x => x.CartOrders)
                     .ThenInclude(x => x.Pizza)
                     .ThenInclude(x => x.Thickness)
-                    .Include(x => x.Customer)
                     .Include(x => x.Address)
-                    .OrderBy(x => x.CreatedOn)
+                    .OrderByDescending(x => x.CreatedOn)
                     .ThenBy(x => x.Address)
                     .ToList();
             }

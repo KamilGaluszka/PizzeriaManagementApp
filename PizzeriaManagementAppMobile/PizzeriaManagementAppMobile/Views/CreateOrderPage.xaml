@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewmodels="clr-namespace:PizzeriaManagementAppMobile.ViewModels"
+             x:Class="PizzeriaManagementAppMobile.Views.CreateOrderPage">
+    <ContentPage.BindingContext>
+        <viewmodels:CreateOrderPageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" Padding="30" Spacing="10">
+            <StackLayout Orientation="Vertical" Spacing="10">
+                <Picker x:Name="PaymentMethod"
+                        Title="Select a payment method"
+                        TitleColor="#0275d8"
+                        SelectedItem="{Binding PaymentMethod}">       
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Cash</x:String>
+                            <x:String>Credit card</x:String>
+                            <x:String>Bank transfer</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <Entry x:Name="Country" 
+                       Text="{Binding Address.Country}" 
+                       Placeholder="Country"/>
+                <Entry x:Name="PostalCode" 
+                       Text="{Binding Address.PostalCode}" 
+                       Placeholder="Postal Code"/>
+                <Entry x:Name="Town" 
+                       Text="{Binding Address.Town}" 
+                       Placeholder="Town"/>
+                <Entry x:Name="Street" 
+                       Text="{Binding Address.Street}" 
+                       Placeholder="Street"/>
+                <Entry x:Name="HouseNumber" 
+                       Text="{Binding Address.HouseNumber}" 
+                       Placeholder="House Number"/>
+                <Entry x:Name="ApartmentNumber" 
+                       Text="{Binding Address.ApartmentNumber}" 
+                       Placeholder="Apartment Number"/>
+                <Label Text="{Binding TotalPrice}"
+                       FontSize="Medium"
+                       TextColor="#0275d8"/>
+            </StackLayout>
+            <Button Text="Order" 
+                    TextColor="White"  
+                    FontAttributes="Bold" 
+                    FontSize="Medium" 
+                    HorizontalOptions="FillAndExpand"  
+                    BackgroundColor="#0275d8" 
+                    Command="{Binding CreateOrderCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

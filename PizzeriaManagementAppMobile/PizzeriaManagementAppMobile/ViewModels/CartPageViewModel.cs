@@ -29,6 +29,7 @@ namespace PizzeriaManagementAppMobile.ViewModels
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
                 HttpClient httpClient = _httpClientProvider.GetClient();
                 var url = $"{WC.BaseAddress}{WC.PizzaDetails}";
+                float totalPrice = 0;
                 var shoppingCart = (Dictionary<Guid, int>)Application.Current.Properties[WC.ShoppingCart];
                 foreach (var item in shoppingCart)
                 {
@@ -40,7 +41,9 @@ namespace PizzeriaManagementAppMobile.ViewModels
                         Pizza = pizza,
                         Amount = item.Value
                     });
+                    totalPrice += (pizza.Price * item.Value);
                 }
+                Application.Current.Properties[WC.TotalCount] = totalPrice;
             }
             catch (Exception)
             {

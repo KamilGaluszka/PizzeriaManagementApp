@@ -66,17 +66,11 @@ namespace PizzeriaManagementAppMobile.ViewModels
 
             try
             {
-                // Normalize the domain
                 email = Regex.Replace(email, @"(@)(.+)$", DomainMapper,
                                       RegexOptions.None, TimeSpan.FromMilliseconds(200));
-
-                // Examines the domain part of the email and normalizes it.
                 string DomainMapper(Match match)
                 {
-                    // Use IdnMapping class to convert Unicode domain names.
                     var idn = new IdnMapping();
-
-                    // Pull out and process domain name (throws ArgumentException on invalid)
                     string domainName = idn.GetAscii(match.Groups[2].Value);
 
                     return match.Groups[1].Value + domainName;
@@ -107,7 +101,7 @@ namespace PizzeriaManagementAppMobile.ViewModels
         {
             if(!IsValidEmail(Email) || string.IsNullOrWhiteSpace(Password))
             {
-                await _messageService.ShowAsync("Invalid email or password format");
+                await _messageService.DisplayFailAlert("Invalid email or password format");
             }
             else
             {
@@ -120,15 +114,20 @@ namespace PizzeriaManagementAppMobile.ViewModels
                 if (response.IsSuccessStatusCode)
                 {
                     Application.Current.Properties[WC.CurrentUser] = Email;
+                    var url2 = $"{WC.BaseAddress}{WC.GetUserAddress}";
+                    var response2 = await httpClient.GetAsync($"{url2}?email={Email}");
+                    var responseString2 = await response2.Content.ReadAsStringAsync();
+                    var address = JsonConvert.DeserializeObject<Address>(responseString2);
+                    Application.Current.Properties[WC.CurrentUserAddress] = address;
                     await navigation.PushAsync(new HomePage());
                 }
                 else if(response.StatusCode == HttpStatusCode.Unauthorized)
                 {
-                    await _messageService.ShowAsync("Email or password is invalid, try again");
+                    await _messageService.DisplayFailAlert("Email or password is invalid, try again");
                 }
                 else
                 {
-                    await _messageService.ShowAsync("Invalid login, try again");
+                    await _messageService.DisplayFailAlert("Invalid login, try again");
                 }
             }
         }

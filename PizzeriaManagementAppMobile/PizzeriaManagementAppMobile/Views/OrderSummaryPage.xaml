@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewmodels="clr-namespace:PizzeriaManagementAppMobile.ViewModels"
+             x:Class="PizzeriaManagementAppMobile.Views.OrderSummaryPage">
+    <ContentPage.BindingContext>
+        <viewmodels:HomePageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <ListView BackgroundColor="Transparent" 
+                  ItemsSource="{Binding Orders}"
+                  HasUnevenRows="True"
+                  SeparatorColor="AliceBlue"
+                  SeparatorVisibility="None">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Margin="10, 30, 10, 10" 
+                                     Spacing="10" 
+                                     VerticalOptions="CenterAndExpand">
+                            <Label Text="{Binding CreatedOnDate}"
+                                   FontSize="Large"
+                                   TextColor="#0275d8"
+                                   HorizontalOptions="CenterAndExpand" />
+                            <Label Text="{Binding PaymentMethod}"
+                                   FontSize="Medium"
+                                   HorizontalOptions="CenterAndExpand" />
+                            <Label Text="{Binding CurrentStatus}"
+                                   FontSize="Medium"
+                                   HorizontalOptions="CenterAndExpand" />
+                            <Button Text="Refresh status" 
+                                    BackgroundColor="#0275d8"
+                                    TextColor="White"
+                                    CornerRadius="10"
+                                    Clicked="Refresh"/>
+                            <Button BackgroundColor="#0275d8" 
+                                    TextColor="White"
+                                    Text="Back to home"
+                                    Padding="10"
+                                    FontSize="Small"
+                                    CornerRadius="4"
+                                    Clicked="BackToHomePage"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>

@@ -12,6 +12,15 @@
                 return $"{Amount}x {Pizza.Name}";
             }
         }
+
+        public string PizzaPrice
+        {
+            get
+            {
+                return $"Price: {Pizza.Price * Amount}";
+            }
+        }
+
         public string SizeAndThickness
         {
             get

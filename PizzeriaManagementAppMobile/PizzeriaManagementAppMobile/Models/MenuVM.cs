@@ -14,6 +14,15 @@ namespace PizzeriaManagementAppMobile.Models
                 return $"{Pizza.Size.Name} {Pizza.Size.Value} - {Pizza.Thickness.Name}";
             }
         }
+
+        public string PizzaPrice
+        {
+            get
+            {
+                return $"Price: {Pizza.Price}";
+            }
+        }
+
         public string ProductsNames { 
             get
             {

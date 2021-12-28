@@ -9,27 +9,29 @@
     <ContentPage.Content>
         <StackLayout>
             <ListView BackgroundColor="Transparent" 
-                  ItemsSource="{Binding Pizzas}"
-                  HasUnevenRows="True"
-                  SeparatorColor="AliceBlue"
-                  SeparatorVisibility="None"
-                  ItemTapped="ListView_ItemTapped">
+                      ItemsSource="{Binding Pizzas}"
+                      HasUnevenRows="True"
+                      SeparatorColor="AliceBlue"
+                      SeparatorVisibility="None"
+                      ItemTapped="ListView_ItemTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.ContextActions>
                                 <MenuItem Text="Remove from cart"
-                                      IsDestructive="True"
-                                      Clicked="MenuItem_Clicked"/>
+                                          IsDestructive="True"
+                                          Clicked="MenuItem_Clicked"/>
                             </ViewCell.ContextActions>
                             <Grid Padding="5">
                                 <Frame>
                                     <StackLayout>
                                         <Label TextColor="#0275d8" 
-                                           FontSize="Medium" 
-                                           Text="{Binding PizzaWithAmount}"/>
+                                               FontSize="Medium" 
+                                               Text="{Binding PizzaWithAmount}"/>
                                         <Label FontSize="Small" 
-                                           Text="{Binding SizeAndThickness}"/>
+                                               Text="{Binding SizeAndThickness}"/>
+                                        <Label FontSize="Small"
+                                               Text="{Binding PizzaPrice}"/>
                                     </StackLayout>
                                 </Frame>
                             </Grid>

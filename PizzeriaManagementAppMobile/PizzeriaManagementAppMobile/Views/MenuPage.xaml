@@ -33,6 +33,8 @@
                                            Text="{Binding SizeAndThickness}"/>
                                     <Label FontSize="Small" 
                                            Text="{Binding ProductsNames}"/>
+                                    <Label FontSize="Small"
+                                           Text="{Binding PizzaPrice}"/>
                                 </StackLayout>
                             </Frame>
                         </Grid>

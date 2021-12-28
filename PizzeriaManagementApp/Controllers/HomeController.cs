@@ -45,7 +45,7 @@ namespace PizzeriaManagementApp.Controllers
                 var user = await _userManager.FindByNameAsync(loginUser.Email);
                 if (user is null)
                 {
-                    return Unauthorized();
+                    return NotFound();
                 }
                 var validCredentials = await _userManager.CheckPasswordAsync(user, loginUser.Password);
                 if (validCredentials)
@@ -116,6 +116,87 @@ namespace PizzeriaManagementApp.Controllers
         public IActionResult MenuAPI([FromQuery] Guid id)
         {
             var json = JsonSerializer.Serialize(GetPizzas(id));
+            return Ok(json);
+        }
+
+        public async Task<IActionResult> OrderAPI([FromBody] OrderAPI orderAPI)
+        {
+            try
+            {
+                var address = new OrderAddress()
+                {
+                    ApartmentNumber = orderAPI.Address.ApartmentNumber,
+                    PostalCode = orderAPI.Address.PostalCode,
+                    Street = orderAPI.Address.Street,
+                    Town = orderAPI.Address.Town,
+                    HouseNumber = orderAPI.Address.HouseNumber,
+                    Country = orderAPI.Address.Country
+                };
+                var orderAddress = _dbContext.Add(address);
+                string customerId = null;
+                if (orderAPI.Email is not null)
+                {
+                    var user = await _userManager.FindByNameAsync(orderAPI.Email);
+                    customerId = user.Id;
+                }
+                
+
+                Order order = new Order()
+                {
+                    CreatedOn = DateTime.Now,
+                    CustomerId = customerId,
+                    Payment = orderAPI.Payment,
+                    Status = WC.Ordered,
+                    TotalPrice = orderAPI.TotalPrice,
+                    PizzeriaId = orderAPI.PizzeriaId,
+                    OrderAddressId = orderAddress.Entity.Id
+                };
+                var addedOrder = _dbContext.Add(order);
+                foreach (var pizzaWithAmount in orderAPI.PizzaAmounts)
+                {
+                    CartOrders cartOrder = new()
+                    {
+                        OrderId = addedOrder.Entity.Id,
+                        Amount = pizzaWithAmount.Amount,
+                        PizzaId = pizzaWithAmount.PizzaId
+                    };
+                    _dbContext.Add(cartOrder);
+                }
+                _dbContext.SaveChanges();
+                var json = JsonSerializer.Serialize(order.Id);
+                return Ok(json);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+                throw;
+            }
+        }
+
+        public IActionResult OrderDetailsAPI(Guid id)
+        {
+            Order order = _dbContext.Orders.Find(id);
+            var json = JsonSerializer.Serialize(order);
+            return Ok(json);
+        }
+
+        public async Task<IActionResult> GetUserAddress([FromQuery] string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return BadRequest();
+            }
+            var user = (ApplicationUser) await _userManager.FindByNameAsync(email);
+            if (user is null)
+            {
+                return NotFound();
+            }
+            var address = _dbContext.Addresses.Where(x => x.Id == user.AddressId).FirstOrDefault();
+            if (address is null)
+            {
+                return NotFound();
+            }
+            var json = JsonSerializer.Serialize(address);
             return Ok(json);
         }
 

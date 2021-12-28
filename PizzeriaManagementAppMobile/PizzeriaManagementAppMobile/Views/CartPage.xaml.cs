@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -46,9 +43,17 @@ namespace PizzeriaManagementAppMobile.Views
             Navigation.PushAsync(new HomePage());
         }
 
-        private void MakeAnOrder(object sender, EventArgs e)
+        private async void MakeAnOrder(object sender, EventArgs e)
         {
-
+            var shoppingCart = (Dictionary<Guid, int>)Application.Current.Properties[WC.ShoppingCart];
+            if (shoppingCart.Any())
+            {
+                await Navigation.PushAsync(new CreateOrderPage());
+            }
+            else
+            {
+                await DisplayAlert("Shopping cart", "Cart is empty, first add something", "OK");
+            }
         }
     }
 }

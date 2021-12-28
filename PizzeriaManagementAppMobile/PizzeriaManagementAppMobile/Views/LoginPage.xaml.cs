@@ -10,8 +10,10 @@ namespace PizzeriaManagementAppMobile.Views
         public LoginPage()
         {
             InitializeComponent();
-            var vm = new LoginPageViewModel();
-            vm.navigation = Navigation;
+            var vm = new LoginPageViewModel
+            {
+                navigation = Navigation
+            };
             BindingContext = vm;
         }
     }

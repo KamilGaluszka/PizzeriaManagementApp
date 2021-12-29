@@ -31,7 +31,7 @@
                             <Button Text="Refresh status" 
                                     BackgroundColor="#0275d8"
                                     TextColor="White"
-                                    CornerRadius="10"
+                                    CornerRadius="4"
                                     Clicked="Refresh"/>
                             <Button BackgroundColor="#0275d8" 
                                     TextColor="White"

@@ -39,7 +39,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
                 <ListView.Header>
-                    <StackLayout Margin="4">
+                    <StackLayout Margin="10">
                         <Button BackgroundColor="#0275d8" 
                                 TextColor="White"
                                 Text="Back to home"

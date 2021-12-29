@@ -10,12 +10,11 @@
     <ContentPage.Content>
         <StackLayout>
             <StackLayout BackgroundColor="Transparent"
-                         HorizontalOptions="CenterAndExpand"
-                         Margin="2">
+                         Margin="10">
                 <Button BackgroundColor="#0275d8" 
                         TextColor="White"
-                        WidthRequest="100"
                         Text="Show cart"
+                        HorizontalOptions="FillAndExpand"
                         Padding="2"
                         Clicked="Button_Clicked"/>
             </StackLayout>
